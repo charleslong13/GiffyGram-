@@ -1,3 +1,5 @@
+import { MessageForm } from "../message/MessageForm.js"
+
 export const NavBar = () => {
     return `        
     <nav class="navigation">
@@ -20,3 +22,14 @@ export const NavBar = () => {
         </div>
     </nav>`
 }
+
+
+document.addEventListener(
+    "click",
+    (event) => {
+        if (event.target.id === "directMessageIcon") {
+            const applicationElement = document.querySelector(".messageFormContainer")
+         applicationElement.innerHTML = MessageForm()
+        }
+    }
+)
