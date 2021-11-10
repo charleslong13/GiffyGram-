@@ -18,19 +18,19 @@ const applicationState = {
 
 //Return a copy of the applicationState
 export const getUsers = () => {
-    return database.users.map(user => ({...user}))
+    return applicationState.users.map(user => ({...user}))
 }
 export const getMessages = () => {
-    return database.messages.map(message => ({...message}))
+    return applicationState.messages.map(message => ({...message}))
 }
 export const getPosts = () => {
-    return database.posts.map(post => ({...post}))
+    return  applicationState.posts.map(post => ({...post}))
 }
 export const getFavorites = () => {
-    return database.favorites.map(favorite => ({...favorite}))
+    return  applicationState.favorites.map(favorite => ({...favorite}))
 }
 export const getFollows = () => {
-    return database.follows.map(follow => ({...follow}))
+    return  applicationState.follows.map(follow => ({...follow}))
 }
 
 //Fetch the API
