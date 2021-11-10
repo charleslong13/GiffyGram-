@@ -1,4 +1,4 @@
-import { getUsers } from "../data/provider.js"
+import { getUsers, setCurrentUser } from "../data/provider.js"
 
 //click event listener to listen for a click on the loginButton
 document.addEventListener("click", clickEvent => {
@@ -16,6 +16,7 @@ document.addEventListener("click", clickEvent => {
         }
 //if found user is not null (i.e. if it exists) set the found user's id in local storage 
         if (foundUser !== null) {
+            setCurrentUser(foundUser.id) // invoke the function that sets the UserId in transient state.
             localStorage.setItem("gg_user", foundUser.id)
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         }
