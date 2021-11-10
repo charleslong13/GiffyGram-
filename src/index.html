@@ -8,19 +8,424 @@
 </head>
 
 <body>
-    <header class=“header”>
-        <div class=“header__left”>
-            <button id=“homeButton”><img src=“./images/pb.png”></button>
-            <h1>Giffygram</h1>
+
+    <main class="giffygram">
+        
+        <nav class="navigation">
+            <div></div><div class="navigation__homeIcon">
+                <img src="/images/pb.png" alt="Giffygram icon" id="logo">
+            </div>
+            <h1 class="navigation__title">Giffygram</h1>
+            <div class="navigation__right">
+                <img id="navigation__messageFormIcon" src="/images/fountain-pen.svg" alt="Direct message">
+                <div class="navigation__messageNotifications"> 0 </div>
+                <button id="navigation__logout" class="fakeLink">Logout</button>
+            </div>
+        </nav>
+        
+        
+            <div class="directMessage">
+                <h3>Direct Message</h3>
+                <div>Recipient:
+                    <select name="directMessage__userSelect" class="message__input">
+                        <option>Choose a recipient...</option>
+                        <option value="messageRecipient--1">1</option>,<option value="messageRecipient--2">2</option>,<option value="messageRecipient--3">3</option>,<option value="messageRecipient--4">4</option>,<option value="messageRecipient--5">5</option>,<option value="messageRecipient--6">6</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <input name="message" class="message__input" type="text" placeholder="Message to user">
+                </div>
+
+                <button id="directMessage__submit">Save</button>
+                <button id="directMessage__cancel">Cancel</button>
+
+                <button id="directMessage__close">x</button>
+
+            </div>
+        
+        <div class="giffygram__feed">
+            <div class="miniMode" id="miniMode">Have a gif to post?</div>
+            
+    <section class="post">
+        <header>
+            <h2 class="post__title"></h2>
+        </header>
+        <img class="post__image" src="">
+        <div class="post__description">
+            
         </div>
-        <div class=“header__right”>
-            <button id=“messageFormButton”><img src=“./images/fountain-pen.svg”></button>
-            <button id=“messageListButton”></button>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--5">
+                Kimmy Bird
+            </a>
+            on 11/9/2021
         </div>
-    </header>
-    <main class=“giffygram”></main>
-    <footer class=“footer”></footer>
-    <script type=“module” src=“./scripts/main.js”></script>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--14" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Lol</h2>
+        </header>
+        <img class="post__image" src="huehueh">
+        <div class="post__description">
+            Lolz i so random I can haz cheezburger
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--4">
+                Daniella Agnoletti
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--13" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Love pooh thought of this on on the fly </h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/gifsu/8ni4v3bcnqXYIAEirH/giphy-caption.gif?cid=6104955eb87d952042f06a7f4130470f3446becbb4ff356e&amp;rid=giphy-caption.gif&amp;ct=g">
+        <div class="post__description">
+            an original by me 
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--3">
+                Mark Ellis
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--11" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">all done</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/jJxaUysjzO9ri/giphy.gif">
+        <div class="post__description">
+            ahhh 
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--3">
+                Mark Ellis
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--10" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">another original </h2>
+        </header>
+        <img class="post__image" src="https://media1.giphy.com/media/11dgYWwHnEFomQ/giphy.gif?cid=6104955eee646d009805077e7079b0cace623ea84cd58ca9&amp;rid=giphy.gif&amp;ct=g">
+        <div class="post__description">
+            hungry cat -- please do not steal and share my gifs
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--3">
+                Mark Ellis
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--9" class="actionIcon" src="/images/favorite-star-yellow.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">original gif i found on my own </h2>
+        </header>
+        <img class="post__image" src="https://media4.giphy.com/media/boj7PRvJOpIT6/giphy-downsized.gif?cid=6104955e78b79bb47ad15330b2ad9a191d8d931704ce6081&amp;rid=giphy-downsized.gif&amp;ct=g">
+        <div class="post__description">
+            if you see this posted anywhere it was probably copied from me 
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--3">
+                Mark Ellis
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--8" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">WOW</h2>
+        </header>
+        <img class="post__image" src="https://tenor.com/view/wao-wow-gif-22908688">
+        <div class="post__description">
+            thoughts behind the code....
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--3">
+                Mark Ellis
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--7" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Love you Bob</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/aysBMSvOiagPm/giphy.gif">
+        <div class="post__description">
+            Bob is a dope individual 
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--4">
+                Daniella Agnoletti
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--6" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Me trying to decipher this code</h2>
+        </header>
+        <img class="post__image" src="https://media0.giphy.com/media/PacQUjx7vwEBJLszzc/giphy.gif?cid=790b7611da0d83c6e5c499b062a42569c0662e03aa02b1b2&amp;rid=giphy.gif&amp;ct=g">
+        <div class="post__description">
+            
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--5">
+                Kimmy Bird
+            </a>
+            on 11/9/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--5" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Learning JavaScript</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/S9dN7OWFj8GoRhTIuL/giphy-downsized.gif">
+        <div class="post__description">
+            Ethical chillwave jianbing ramps plaid subway tile.
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--2">
+                Meg Ducharme
+            </a>
+            on 4/2/2021
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--4" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Graduation!</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/lSPlEENLTonvclZP44/giphy.gif">
+        <div class="post__description">
+            Pop-up biodiesel pickled crucifix. Tousled succulents banjo bicycle rights.
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--2">
+                Meg Ducharme
+            </a>
+            on 6/11/2018
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--3" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">My first post</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/3oz8xyUoD2HlTIcdTW/giphy.gif">
+        <div class="post__description">
+            Jianbing butcher post-ironic brunch marfa, listicle quinoa kickstarter vinyl poke cornhole snackwave yr flexitarian.
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--1">
+                Ray Medrano
+            </a>
+            on 10/15/2017
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--1" class="actionIcon" src="/images/favorite-star-blank.svg">
+            </div>
+            <div>
+                <img id="blockPost--1" class="actionIcon" src="/images/block.svg">
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="post">
+        <header>
+            <h2 class="post__title">Dinner</h2>
+        </header>
+        <img class="post__image" src="https://media.giphy.com/media/4RslNp4SUqAoM/giphy.gif">
+        <div class="post__description">
+            Messenger bag hella gochujang adaptogen, aesthetic sartorial before they sold out franzen sustainable thundercats.
+        </div>
+        <div class="post__tagline">
+            Posted by
+            <a href="#" class="profileLink" id="profile--2">
+                Meg Ducharme
+            </a>
+            on 6/15/2017
+        </div>
+        <div class="post__actions">
+            <div>
+                <img id="favoritePost--2" class="actionIcon" src="/images/favorite-star-yellow.svg">
+            </div>
+            <div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+        </div>
+        
+        <footer class="footer">
+            <div class="footer__item">
+                Posts since <select id="yearSelection">
+                    <option>2020</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                </select>
+                <span id="postCount">10</span>
+            </div>
+            <div class="footer__item">
+                Posts by user <select id="userSelection">
+                    
+                        <option value="user--1">Ray Medrano</option>
+                    ,
+                        <option value="user--2">Meg Ducharme</option>
+                    ,
+                        <option value="user--3">Mark Ellis</option>
+                    ,
+                        <option value="user--4">Daniella Agnoletti</option>
+                    ,
+                        <option value="user--5">Kimmy Bird</option>
+                    ,
+                        <option value="user--6">Emily Lemmon</option>
+                    
+                </select>
+            </div>
+            <div class="footer__item">
+            Show only favorites <input id="showOnlyFavorites" type="checkbox">
+            </div>
+        </footer>
+    
+    </main>
+
+    <script type="module" src="./scripts/main.js"></script>
+
+
+
 </body>
 
 </html>
+
