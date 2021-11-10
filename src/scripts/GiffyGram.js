@@ -6,7 +6,7 @@ import {MessageForm} from './message/MessageForm.js';
 
 export const GiffyGram = () => {
 
-    // return main UI
+    // return main UI for the main page
     return`
     ${NavBar()}
     ${MessageForm()}
