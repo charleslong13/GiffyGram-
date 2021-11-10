@@ -24,11 +24,9 @@ export const renderApp = () => {
 
 renderApp()
 
-document.addEventListener("stateChanged",
+applicationElement.addEventListener("stateChanged",
     customEvent => {
         console.log("State has changed. Re-rendering HTML...")
-        render()
+        renderApp()
     }
 )
-
-//take this comment out 

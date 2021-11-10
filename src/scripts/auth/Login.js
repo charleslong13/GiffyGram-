@@ -20,6 +20,7 @@ document.addEventListener("click", clickEvent => {
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         }
     }
+    
 })
 
 export const LoginForm = () => {
@@ -35,7 +36,7 @@ export const LoginForm = () => {
                     <input type="password" name="password" placeholder="Password" />
                 </fieldset>
             </form>
-            <button id="loginButton">Login</button>
+            <button id="loginButton" name="loginButton">Login</button>
         </div>
     `
 }
