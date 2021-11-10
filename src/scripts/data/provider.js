@@ -24,13 +24,13 @@ export const getMessages = () => {
     return applicationState.messages.map(message => ({...message}))
 }
 export const getPosts = () => {
-    return  applicationState.posts.map(post => ({...post}))
+    return applicationState.posts.map(post => ({...post}))
 }
 export const getFavorites = () => {
-    return  applicationState.favorites.map(favorite => ({...favorite}))
+    return applicationState.favorites.map(favorite => ({...favorite}))
 }
 export const getFollows = () => {
-    return  applicationState.follows.map(follow => ({...follow}))
+    return applicationState.follows.map(follow => ({...follow}))
 }
 
 //Fetch the API
