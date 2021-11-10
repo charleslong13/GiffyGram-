@@ -1,4 +1,33 @@
-import { getUsers } from "../data/provider.js"
+import { getUsers, saveDirectMessage, getCurrentUser } from "../data/provider.js"
+
+
+
+
+document.addEventListener(  // event listener that will listen for the click on save button and save user input to state. Event also generates an alert "message has been sent"
+    "click",
+    (changeEvent) => {
+        if (changeEvent.target.id === "directMessage__submit") {
+            alert("Your message has been sent")
+            const recipientId = document.querySelector('select[name="directMessage__userSelect"]').value // get the values of the user choice from the Recipient dropdown.
+            const text = document.querySelector("textarea[name='message']").value // get value of the message written in the text field.
+            const userId = getCurrentUser().currentUserId // assigning the value of the getCurrentUser() function to userId which is an Object 
+            const directMessageObj = { // declare a variable to hold the values of the user choice and text which will be sent to the API
+                
+                userId: userId,
+                recipientId: parseInt(recipientId),
+                text: text
+            }
+
+            saveDirectMessage(directMessageObj)
+        }
+    }
+)
+
+
+
+
+
+
 
 
 // export function which will generate  the Direct Message form
@@ -25,7 +54,7 @@ export const MessageForm = () => {
                 <label for="message">Message:</label>
                 <textarea name="message" class="message__input" type="text" placeholder="Message to user"> </textarea>
             </div> 
-            <button id="directMessage__submit">Save</button>
+            <button id="directMessage__submit">Sent</button>
             <button id="directMessage__cancel">Cancel</button>
             <button id="directMessage__close">x</button>
         </div>
