@@ -7,6 +7,7 @@ import { NavBar } from "./nav/NavBar.js"
 export const GiffyGram = () => {
 
     // return main UI for the main page
+    //created a new div for where we want our message form to be displayed 
     return`
     ${NavBar()}
     <div class="messageFormContainer"></div>

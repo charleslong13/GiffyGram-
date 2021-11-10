@@ -24,12 +24,14 @@ export const NavBar = () => {
     </nav>`
 }
 
-
+//create a click eventlistener so that when the pen icon is clicked it will render our message form  
 document.addEventListener(
     "click",
     (event) => {
         if (event.target.id === "directMessageIcon") {
+            //created a new div and gave it a class of messageFormContainer in our giffygram module, below we are directing where our message form renders 
             const applicationElement = document.querySelector(".messageFormContainer")
+            //return value of our message form is a string - the line below is responsible for rendering the form as html
          applicationElement.innerHTML = MessageForm()
         }
     }
