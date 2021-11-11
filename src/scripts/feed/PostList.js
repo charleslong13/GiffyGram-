@@ -1,19 +1,29 @@
-export const PostList = () => {
-    return`
-    <section class="posts">
+import { getPosts, getUsers } from '../data/provider.js'
 
+
+export const PostList = () => {
+    const posts = getPosts()
+    const users = getUsers()
+
+    return`<section class="posts">
+    ${posts.map(postObj => {
+        const foundUser = users.find(userObj => {
+            return postObj.userId === userObj.id
+        }
+        )
+        
+        return `
         <div class="post">
             <header>
-                <h2 class="post__title"></h2>
+                <h2 class="post__title">${postObj.title}</h2>
             </header>
-            <img class="post__image" src="https://media.giphy.com/media/jJxaUysjzO9ri/giphy.gif">
+            <img class="post__image" src="${postObj.imageURL}">
             <div class="post__description">
-                This is a post description hard coded into the HTML. Blah blah blah.
+                ${postObj.description}
             </div>
             <div class="post__tagline">
-                Posted by
-                <a href="#" class="profileLink" id="profile--">
-                    Mark Ellis
+                <a href="#" class="profileLink" id="profile--${foundUser.id}">
+                    Posted by: ${foundUser.name}
                 </a>
                 on 11/9/2021
             </div>
@@ -28,8 +38,8 @@ export const PostList = () => {
                     <img id="blockPost--" class="actionIcon" src="./images/block.svg">
                 </div>
             </div>
-        </div>
-
+        </div>`
+    }).join("")}
     </section>`
+    
 }
-
