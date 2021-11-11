@@ -1,5 +1,5 @@
 import { LoginForm } from "./auth/Login.js"
-import { fetchFavorites, fetchFollows, fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js"
+import { fetchFavorites, fetchFollows, fetchMessages, fetchPosts, fetchUsers, setCurrentUser } from "./data/provider.js"
 import { GiffyGram } from "./GiffyGram.js"
 
 const applicationElement = document.querySelector(".giffygram")
@@ -21,7 +21,8 @@ export const renderApp = () => {
             applicationElement.innerHTML = LoginForm()
         }
     })
-
+    //set the current user with localStorage every time the app is re-rendered
+    setCurrentUser(parseInt(localStorage['getItem']('gg_user')))
 }
 
 renderApp()
@@ -32,5 +33,6 @@ applicationElement.addEventListener("stateChanged",
     customEvent => {
         console.log("State has changed. Re-rendering HTML...")
         renderApp()
+        
     }
 )

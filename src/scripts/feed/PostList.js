@@ -1,9 +1,10 @@
 export const PostList = () => {
     return`
     <section class="posts">
+
         <div class="post">
             <header>
-                <h2 class="post__title">HTML Test</h2>
+                <h2 class="post__title"></h2>
             </header>
             <img class="post__image" src="https://media.giphy.com/media/jJxaUysjzO9ri/giphy.gif">
             <div class="post__description">
@@ -28,5 +29,7 @@ export const PostList = () => {
                 </div>
             </div>
         </div>
+
     </section>`
 }
+
