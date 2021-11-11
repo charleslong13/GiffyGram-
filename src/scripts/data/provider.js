@@ -172,3 +172,12 @@ export const patchMessageBoolean = () => {
         })
 }
 
+export const DeletePost = (id) => {
+    return fetch(`${API}/posts/${id}`, { 
+        method: "DELETE" })
+        .then(
+            () => {
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+            }
+        )
+}

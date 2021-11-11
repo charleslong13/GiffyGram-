@@ -1,4 +1,4 @@
-import { getPosts, getUsers } from '../data/provider.js'
+import { getPosts, getUsers, DeletePost } from '../data/provider.js'
 
 
 export const PostList = () => {
@@ -34,7 +34,8 @@ export const PostList = () => {
                     <img id="favoritePost--" class="actionIcon" src="./images/favorite-star-yellow.svg">
                 </div>
                 <div>
-                    <img id="blockPost--" class="actionIcon" src="./images/block.svg">
+                    <img id="blockPost--${postObj.id}" class="actionIcon" src="./images/block.svg">
+                    ${DeletePost()}
                 </div>
             </div>
         </div>`
