@@ -1,18 +1,28 @@
+import { getPosts, getUsers } from '../nav/getPosts.js'
+
+
 export const PostList = () => {
+    const posts = getPosts()
+    const users = getUsers()
+
     return`
-    <section class="posts">
+    ${posts.map(postObj => {
+        <section class="posts">
         <div class="post">
             <header>
                 <h2 class="post__title">HTML Test</h2>
             </header>
-            <img class="post__image" src="https://media.giphy.com/media/jJxaUysjzO9ri/giphy.gif">
+            <img class="post__image" src="${postObj.imageUrl}">
             <div class="post__description">
-                This is a post description hard coded into the HTML. Blah blah blah.
+                ${postObj.description}
             </div>
             <div class="post__tagline">
                 Posted by
                 <a href="#" class="profileLink" id="profile--">
-                    Mark Ellis
+                    ${users.map(userObj => {
+
+                    }).join("")}
+                    ${}
                 </a>
                 on 11/9/2021
             </div>
@@ -29,4 +39,6 @@ export const PostList = () => {
             </div>
         </div>
     </section>`
+    }).join("")}`
+    
 }

@@ -54,7 +54,7 @@ export const MessageForm = () => {
                 <label for="message">Message:</label>
                 <textarea name="message" class="message__input" type="text" placeholder="Message to user"> </textarea>
             </div> 
-            <button id="directMessage__submit">Sent</button>
+            <button id="directMessage__submit">Send</button>
             <button id="directMessage__cancel">Cancel</button>
             <button id="directMessage__close">x</button>
         </div>
