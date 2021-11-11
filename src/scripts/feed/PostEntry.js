@@ -1,3 +1,4 @@
+import {saveNewPost, getCurrentUser} from "../data/provider.js"
 
 //created a new function to only render the postform button 
 export const PostEntryButton = () => {
@@ -43,4 +44,19 @@ document.addEventListener(
         if (event.target.id === "newPost__cancel") {
             const applicationElement = document.getElementById("postFormArea")
            applicationElement.innerHTML = PostEntryButton()
-        }})
+        } else if (event.target.id === "newPost__submit") {
+                    alert("Your post has been saved!")
+                    const userId = getCurrentUser().currentUserId
+                    const title = document.querySelector('input[name="postTitle"]').value
+                    const imageURL = document.querySelector('input[name="postURL"]').value
+                    const description = document.querySelector('textarea[name="postDescription"]').value
+                    
+                    const postObj = {
+                        userId: userId,
+                        title: title,
+                        imageURL: imageURL,
+                        description: description,
+                       
+                    }
+                    saveNewPost(postObj)
+                }})

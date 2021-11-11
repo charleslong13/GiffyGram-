@@ -110,5 +110,22 @@ export const saveDirectMessage = (directMessageObj) => { // export fumction that
         })
 }
 
+export const saveNewPost = (postObj) => { // export function that saves the state of the new post created and posts it to the API
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postObj)
+    }
+
+
+    return fetch(`${API}/posts`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
+
 
 
