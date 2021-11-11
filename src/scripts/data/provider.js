@@ -5,7 +5,7 @@ const mainContainer = document.querySelector(".giffygram")
 const applicationState = {
     currentUser: {},
     feed: {
-        chosenUser: null,
+        chosenUserId: null,
         displayFavorites: false,
         displayMessages: false
     },
@@ -23,9 +23,21 @@ export const getUsers = () => {
 export const getMessages = () => {
     return applicationState.messages.map(message => ({ ...message }))
 }
+
+
+
 export const getPosts = () => {
-    return applicationState.posts.map(post => ({ ...post }))
+    if (applicationState.feed.chosenUserId === null) {
+        return applicationState.posts.map(post => ({ ...post }))
+    } else {
+        const filteredPosts = applicationState.posts.filter(post => {
+          return  applicationState.feed.chosenUserId === post.userId
+        })
+        return filteredPosts
+    }
 }
+
+
 export const getFavorites = () => {
     return applicationState.favorites.map(favorite => ({ ...favorite }))
 }
@@ -33,10 +45,14 @@ export const getFollows = () => {
     return applicationState.follows.map(follow => ({ ...follow }))
 }
 export const getCurrentUser = () => {
-    return {...applicationState.currentUser}
+    return { ...applicationState.currentUser }
 }
 export const setCurrentUser = (id) => {
     applicationState.currentUser.currentUserId = id
+}
+export const setChosenUserDropdownOption = (id) => {
+    applicationState.feed.chosenUserId = id
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 
