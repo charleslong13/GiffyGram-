@@ -1,4 +1,4 @@
-import { getUsers } from "../data/provider.js"
+import { getUsers, setCurrentUser } from "../data/provider.js"
 
 //click event listener to listen for a click on the loginButton
 document.addEventListener("click", clickEvent => {
