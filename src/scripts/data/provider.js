@@ -23,9 +23,14 @@ export const getUsers = () => {
 export const getMessages = () => {
     return applicationState.messages.map(message => ({ ...message }))
 }
+export const getUserUnreadMessages = () => {
+    //create an array of message objects that do not have the "read" key, and thus are unread.
+    const unreadArray = applicationState.messages.filter(message => !message.read)
+    //check through unread messages and filter out those that were sent to the current user, store in an array
+    const userUnreadMessages = unreadArray.filter(unreadMessage => unreadMessage.recipientId === applicationState.currentUser.currentUserId)
 
-
-
+    return userUnreadMessages
+}
 export const getPosts = () => { // declaring a function getPosts
     if (applicationState.feed.chosenUserId === null) { 
         // checking if chosenUserId is strictly equal to null
@@ -34,13 +39,11 @@ export const getPosts = () => { // declaring a function getPosts
     } else { // if not null (false)
         const filteredPosts = applicationState.posts.filter(post => {  
             // Creating a new array of filtered objects by using the conditional statement below.                                                    
-          return  applicationState.feed.chosenUserId === post.userId   
+        return  applicationState.feed.chosenUserId === post.userId   
         }) // conditional check if chosenUerId is strictly equal to post.userId. (this is what make up the new array)
         return filteredPosts // returning the filteredPosts variable
     }
 }
-
-
 export const getFavorites = () => {
     return applicationState.favorites.map(favorite => ({ ...favorite }))
 }
@@ -50,11 +53,15 @@ export const getFollows = () => {
 export const getCurrentUser = () => {
     return { ...applicationState.currentUser }
 }
+
+
+//Set transient state
 export const setCurrentUser = (id) => { 
     // function that sets the current "Post by user" option in transient state.
     applicationState.currentUser.currentUserId = id 
     // creating the key value pair of currentUserId and assing to it the value of id which is
-}  // a parameter thats passed in to the function as an argument.
+    // a parameter thats passed in to the function as an argument.
+}
 export const setChosenUserDropdownOption = (id) => { 
     // function that sets transient state for the user that was chosen from the dropdown menu "Post by user" .
     applicationState.feed.chosenUserId = id 
@@ -64,8 +71,7 @@ export const setChosenUserDropdownOption = (id) => {
 }
 
 
-
-//Fetch the API
+//Fetch the API (GET)
 export const fetchUsers = () => {
     return fetch(`${API}/users`)
         .then(response => response.json())
@@ -117,8 +123,10 @@ export const fetchFollows = () => {
         )
 }
 
+
+//POST to API
 export const saveDirectMessage = (directMessageObj) => { 
-    // export fumction that saves the state of Direct Messages created on the MessageForm module
+    // export function that saves the state of Direct Messages created on the MessageForm module
     const fetchOptions = {
         method: "POST",
         headers: {
@@ -126,7 +134,6 @@ export const saveDirectMessage = (directMessageObj) => {
         },
         body: JSON.stringify(directMessageObj)
     }
-
 
     return fetch(`${API}/messages`, fetchOptions)
         .then(response => response.json())
@@ -153,4 +160,32 @@ export const saveNewPost = (postObj) => { // export function that saves the stat
 }
 
 
+/* PATCH the "read" boolean on the message objects in the API 
+(change it to true for all userUnreadMessages) */
+export const patchMessageBoolean = () => {
+    //create an empty array for the promises
+    const promiseArray = []
+    const userUnreadMessages = getUserUnreadMessages()
+    /*for each message that is unread and applies to the current user, push a PATCH promise
+    to the promise array. Each promise will change the read boolean to true in the API*/
+    for (const message of userUnreadMessages) {
+        promiseArray.push(fetch(`${API}/messages/${message.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    read: true
+                })
+            })
+            .then(response => response.json())
+        )
+    }
+    //Execute all of the promises in the promise array, then console log confirmation
+    Promise.all(promiseArray)
+        .then(() => {
+            console.log("All messages changed to read")
+        })
+}
 

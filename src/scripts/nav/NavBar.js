@@ -1,13 +1,12 @@
 import { MessageForm } from "../message/MessageForm.js"
-import {getCurrentUser, getMessages} from "../data/provider.js"
 import { PrivateMessages } from "../message/PrivateMessages.js"
 import { GiffyGram } from "../GiffyGram.js"
+import { getUserUnreadMessages, patchMessageBoolean } from "../data/provider.js"
 
 export const NavBar = () => {
     return `        
     <nav class="navigation">
         <div class="navigation__item navigation__icon">
-            ${/*imgs will still work with a click event */''}
             <img src="./images/pb.png" alt="Giffygram icon" id="logo">
         </div>
         <div class="navigation__item navigation__name">
@@ -16,7 +15,6 @@ export const NavBar = () => {
         <div class="navigation__item navigation__message">
             <img id="directMessageIcon" src="./images/fountain-pen.svg" alt="Direct message">
             <div id="privateMessages" class="notification__count">
-                ${/*replace with function to render dynamic message count*/''}
                 ${NotificationCount()}
             </div>
         </div>
@@ -24,6 +22,13 @@ export const NavBar = () => {
             <button id="logout" class="fakeLink">Logout</button>
         </div>
     </nav>`
+}
+
+const NotificationCount = () =>  {
+    const userUnreadMessages = getUserUnreadMessages()
+    //notifications are the length of the array of messages that are both unread and apply 
+    //to the currently logged in user
+    return userUnreadMessages.length
 }
 
 //create a click eventlistener so that when the pen icon is clicked it will render our message form  
@@ -37,25 +42,15 @@ document.addEventListener(
             messageContainer.innerHTML = MessageForm()
         } else if (event.target.id == "privateMessages") {
             const applicationElement = document.querySelector(".giffygram")
+            //when the icon is clicked on to read the messages, render the navbar, messagelist, and footer
             applicationElement.innerHTML = PrivateMessages()
-
+            //and use the PATCH method to change all unread messages for the user to read
+            patchMessageBoolean()
         } else if (event.target.id == "logo") {
             const applicationElement = document.querySelector(".giffygram")
-            applicationElement.innerHTML = GiffyGram()
-            
+            //re-render the page and fetch all data again when home button is clicked
+            //so that data is fetched again and container is set back to GiffyGram()
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
         }
     }
 )
-const NotificationCount = () => {
-    const messages = getMessages()
-    const currentUser = getCurrentUser()
-
-    //create an array of message objects that do not have the "read" key, and thus are unread.
-    const unreadArray = messages.filter(message => !message.read)
-    //check through unread messages and filter out those that were sent to the current user, store in an array
-    const userUnreadMessages = unreadArray.filter(unreadMessage => unreadMessage.recipientId === currentUser.currentUserId)
-
-    //return a string of the length of the array (the number of unread objects with appropriate recipientId)
-    return `${userUnreadMessages.length}`
-
-}

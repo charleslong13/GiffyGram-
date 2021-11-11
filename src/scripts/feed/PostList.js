@@ -9,8 +9,7 @@ export const PostList = () => {
     ${posts.map(postObj => {
         const foundUser = users.find(userObj => {
             return postObj.userId === userObj.id
-        }
-        )
+        })
         
         return `
         <div class="post">
