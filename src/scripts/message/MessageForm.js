@@ -37,7 +37,7 @@ export const MessageForm = () => {
     // created a variable html and assigned to it the value of the Direct Message form. On line 18 the users array is being itterated through to
     //get the userObjects and then on line 21 the userObj.name is being interpolated to render the Users name property for the message dropdown.
     let html = ` 
-    <div class="directMessage">
+    <div id="myDiv" class="directMessage">
             <h3>Direct Message</h3>
             <div>Recipient:
                 <select name="directMessage__userSelect" class="message__input">
@@ -55,55 +55,16 @@ export const MessageForm = () => {
                 <textarea name="message" class="message__input" type="text" placeholder="Message to user"> </textarea>
             </div> 
             <button id="directMessage__submit">Sent</button>
-            <button id="directMessage__cancel">Cancel</button>
-            <button id="directMessage__close">x</button>
-        </div>
+            <button id="directMessage__cancel" onclick="document.getElementById('myDiv').style.display='none'">Cancel</button>
+            <button class="close" id="directMessage__close" onclick="document.getElementById('myDiv').style.display='none'">x</button>
+            </div>
             
-        `
-
-    return html
-}
-
-window.onload = function(){
-    document.getElementById('directMessage__close').onclick = function(){
-        this.parentNode.parentNode.parentNode
-        .removeChild(this.parentNode.parentNode);
-        return false;
-    };
-};
-
-
-
-
-
-
-
-
-
-
-
-// document.addEventListener(
-//     "click",
-//     (event) => {
-//         if (event.target.id === "directMessage_close") {
-//             const applicationElement = document.querySelector(".messageFormContainer")
-     
-//          applicationElement.innerHTML = ""
-       
-//         }
-//     }
-// )
-
-
-
-
-
-
-
-
-
-
-
+            `
+            
+            return html
+        }
+        
+        
 
 
 
