@@ -37,7 +37,7 @@ export const MessageForm = () => {
     // created a variable html and assigned to it the value of the Direct Message form. On line 18 the users array is being itterated through to
     //get the userObjects and then on line 21 the userObj.name is being interpolated to render the Users name property for the message dropdown.
     let html = ` 
-    <div class="directMessage">
+    <div id="myDiv" class="directMessage">
             <h3>Direct Message</h3>
             <div>Recipient:
                 <select name="directMessage__userSelect" class="message__input">
@@ -54,31 +54,25 @@ export const MessageForm = () => {
                 <label for="message">Message:</label>
                 <textarea name="message" class="message__input" type="text" placeholder="Message to user"> </textarea>
             </div> 
+<<<<<<< HEAD
             <button id="directMessage__submit">Send</button>
             <button id="directMessage__cancel">Cancel</button>
             <button id="directMessage__close">x</button>
         </div>
+=======
+            <button id="directMessage__submit">Sent</button>
+            ${/*Added a onclick handler to take away the messageform display when the cancel or X buttons are clicked*/''}
+            <button id="directMessage__cancel" onclick="document.getElementById('myDiv').style.display='none'">Cancel</button>
+            <button class="close" id="directMessage__close" onclick="document.getElementById('myDiv').style.display='none'">x</button>
+            </div>
+>>>>>>> main
             
-        `
-
-    return html
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            `
+            
+            return html
+        }
+        
+        
 
 
 

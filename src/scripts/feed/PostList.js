@@ -2,6 +2,7 @@ import { getPosts, getUsers } from '../data/provider.js'
 
 
 export const PostList = () => {
+<<<<<<< HEAD
     const posts = getPosts()
     const users = getUsers()
 
@@ -16,6 +17,14 @@ export const PostList = () => {
         <div class="post">
             <header>
                 <h2 class="post__title">${postObj.title}</h2>
+=======
+    return`
+    <section class="posts">
+
+        <div class="post">
+            <header>
+                <h2 class="post__title"></h2>
+>>>>>>> main
             </header>
             <img class="post__image" src="${postObj.imageURL}">
             <div class="post__description">
@@ -38,8 +47,16 @@ export const PostList = () => {
                     <img id="blockPost--" class="actionIcon" src="./images/block.svg">
                 </div>
             </div>
+<<<<<<< HEAD
         </div>`
     }).join("")}
     </section>`
     
 }
+=======
+        </div>
+
+    </section>`
+}
+
+>>>>>>> main
