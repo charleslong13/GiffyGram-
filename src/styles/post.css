@@ -9,6 +9,7 @@
 
 .newPost {
     margin: 0 25%;
+   
 }
 
 .newPost__input {
@@ -71,4 +72,12 @@
 .post__remark {
     font-size: 2em;
     margin: 1em 0 0.5em 0;
+}
+
+#postFormButton {
+    margin-top: -10px
+}
+
+#postFormDiv {
+    margin-bottom: -10px;
 }
