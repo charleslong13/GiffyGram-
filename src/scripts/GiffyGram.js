@@ -14,7 +14,7 @@ export const GiffyGram = () => {
     <div class="messageFormContainer"></div>
     <div class="giffygram__feed">
         <div id="postFormArea">
-             ${PostEntryButton()}
+            ${PostEntryButton()}
         </div>
     ${PostList()}
     </div>

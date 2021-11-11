@@ -8,8 +8,6 @@ export const PostEntryButton = () => {
 //this function generates the actual post form 
 export const PostEntry = () => {
     return `
-   
-    
         <div>
             <input value="" name="postTitle" class="newPost__input" type="text" placeholder="Title">
         </div>
@@ -21,7 +19,7 @@ export const PostEntry = () => {
 
         <button id="newPost__submit">Save</button>
         <button id="newPost__cancel" >Cancel</button>
-    </div>`
+    `
 }
 //above I also added in an onclick handler to be able to close the form 
 //created an event listener so that when the post entry form button is clicked it will display the actual form 
@@ -42,5 +40,5 @@ document.addEventListener(
     (event) => {
         if (event.target.id === "newPost__cancel") {
             const applicationElement = document.getElementById("postFormArea")
-           applicationElement.innerHTML = PostEntryButton()
+            applicationElement.innerHTML = PostEntryButton()
         }})
