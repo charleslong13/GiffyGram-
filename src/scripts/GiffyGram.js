@@ -12,9 +12,10 @@ export const GiffyGram = () => {
     return`
     ${NavBar()}
     <div class="messageFormContainer"></div>
-    <div class="postFormContainer"></div>
     <div class="giffygram__feed">
-    ${PostEntryButton()}
+        <div id="postFormArea">
+             ${PostEntryButton()}
+        </div>
     ${PostList()}
     </div>
     ${Footer()}
