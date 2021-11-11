@@ -9,6 +9,7 @@ document.addEventListener(  // event listener that will listen for the click on 
             const recipientId = document.querySelector('select[name="directMessage__userSelect"]').value // get the values of the user choice from the Recipient dropdown.
             const text = document.querySelector("textarea[name='message']").value // get value of the message written in the text field.
             const userId = getCurrentUser().currentUserId // assigning the value of the getCurrentUser() function to userId which is an Object 
+            
             const directMessageObj = { // declare a variable to hold the values of the user choice and text which will be sent to the API
 
                 userId: userId,
