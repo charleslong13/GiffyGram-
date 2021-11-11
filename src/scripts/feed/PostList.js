@@ -1,28 +1,29 @@
-import { getPosts, getUsers } from '../nav/getPosts.js'
+import { getPosts, getUsers } from '../data/provider.js'
 
 
 export const PostList = () => {
     const posts = getPosts()
     const users = getUsers()
 
-    return`
+    return`<section class="posts">
     ${posts.map(postObj => {
-        <section class="posts">
+        const foundUser = users.find(userObj => {
+            return postObj.userId === userObj.id
+        }
+        )
+        
+        return `
         <div class="post">
             <header>
-                <h2 class="post__title">HTML Test</h2>
+                <h2 class="post__title">${postObj.title}</h2>
             </header>
-            <img class="post__image" src="${postObj.imageUrl}">
+            <img class="post__image" src="${postObj.imageURL}">
             <div class="post__description">
                 ${postObj.description}
             </div>
             <div class="post__tagline">
-                Posted by
                 <a href="#" class="profileLink" id="profile--">
-                    ${users.map(userObj => {
-
-                    }).join("")}
-                    ${}
+                    Posted by: ${foundUser.name}
                 </a>
                 on 11/9/2021
             </div>
@@ -37,8 +38,8 @@ export const PostList = () => {
                     <img id="blockPost--" class="actionIcon" src="./images/block.svg">
                 </div>
             </div>
-        </div>
+        </div>`
+    }).join("")}
     </section>`
-    }).join("")}`
     
 }
