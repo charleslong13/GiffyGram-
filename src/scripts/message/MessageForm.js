@@ -55,6 +55,7 @@ export const MessageForm = () => {
                 <textarea name="message" class="message__input" type="text" placeholder="Message to user"> </textarea>
             </div> 
             <button id="directMessage__submit">Sent</button>
+            ${/*Added a onclick handler to take away the messageform display when the cancel or X buttons are clicked*/''}
             <button id="directMessage__cancel" onclick="document.getElementById('myDiv').style.display='none'">Cancel</button>
             <button class="close" id="directMessage__close" onclick="document.getElementById('myDiv').style.display='none'">x</button>
             </div>
