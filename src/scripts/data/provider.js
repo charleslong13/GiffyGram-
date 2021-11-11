@@ -142,6 +142,23 @@ export const saveDirectMessage = (directMessageObj) => {
         })
 }
 
+export const saveNewPost = (postObj) => { // export function that saves the state of the new post created and posts it to the API
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postObj)
+    }
+
+
+    return fetch(`${API}/posts`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
+
 
 /* PATCH the "read" boolean on the message objects in the API 
 (change it to true for all userUnreadMessages) */
