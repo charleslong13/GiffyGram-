@@ -1,6 +1,7 @@
 import { MessageForm } from "../message/MessageForm.js"
 import {getCurrentUser, getMessages} from "../data/provider.js"
 import { PrivateMessages } from "../message/PrivateMessages.js"
+import { GiffyGram } from "../GiffyGram.js"
 
 export const NavBar = () => {
     return `        
@@ -34,11 +35,14 @@ document.addEventListener(
             const messageContainer = document.querySelector(".messageFormContainer")
             //return value of our message form is a string - the line below is responsible for rendering the form as html
             messageContainer.innerHTML = MessageForm()
-        }
-        if (event.target.id == "privateMessages") {
+        } else if (event.target.id == "privateMessages") {
             const applicationElement = document.querySelector(".giffygram")
             applicationElement.innerHTML = PrivateMessages()
 
+        } else if (event.target.id == "logo") {
+            const applicationElement = document.querySelector(".giffygram")
+            applicationElement.innerHTML = GiffyGram()
+            
         }
     }
 )
@@ -55,17 +59,3 @@ const NotificationCount = () => {
     return `${userUnreadMessages.length}`
 
 }
-
-document.addEventListener(
-    "click",
-    (event) => {
-        if (event.target.id === "directMessage_close") {
-            debugger
-             const applicationElement = document.querySelector(".messageFormContainer")
-     
-         applicationElement.innerHTML = ""
-       
-        }
-    }
-    
-)
