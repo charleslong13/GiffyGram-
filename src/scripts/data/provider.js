@@ -23,7 +23,6 @@ export const getUsers = () => {
 export const getMessages = () => {
     return applicationState.messages.map(message => ({ ...message }))
 }
-
 export const getUserUnreadMessages = () => {
     //create an array of message objects that do not have the "read" key, and thus are unread.
     const unreadArray = applicationState.messages.filter(message => !message.read)
@@ -32,7 +31,6 @@ export const getUserUnreadMessages = () => {
 
     return userUnreadMessages
 }
-
 export const getPosts = () => {
     return applicationState.posts.map(post => ({ ...post }))
 }
@@ -45,13 +43,14 @@ export const getFollows = () => {
 export const getCurrentUser = () => {
     return { ...applicationState.currentUser }
 }
+
+//Set transient state
 export const setCurrentUser = (id) => {
     applicationState.currentUser.currentUserId = id
 }
 
 
-
-//Fetch the API
+//Fetch the API (GET)
 export const fetchUsers = () => {
     return fetch(`${API}/users`)
         .then(response => response.json())
@@ -103,6 +102,7 @@ export const fetchFollows = () => {
         )
 }
 
+//POST to API
 export const saveDirectMessage = (directMessageObj) => { // export fumction that saves the state of Direct Messages created on the MessageForm module
     const fetchOptions = {
         method: "POST",
@@ -120,10 +120,14 @@ export const saveDirectMessage = (directMessageObj) => { // export fumction that
         })
 }
 
+/* PATCH the "read" boolean on the message objects in the API 
+(change it to true for all userUnreadMessages) */
 export const patchMessageBoolean = () => {
+    //create an empty array for the promises
     const promiseArray = []
     const userUnreadMessages = getUserUnreadMessages()
-
+    /*for each message that is unread and applies to the current user, push a PATCH promise
+    to the promise array. Each promise will change the read boolean to true in the API*/
     for (const message of userUnreadMessages) {
         promiseArray.push(fetch(`${API}/messages/${message.id}`,
             {
@@ -138,6 +142,7 @@ export const patchMessageBoolean = () => {
             .then(response => response.json())
         )
     }
+    //Execute all of the promises in the promise array, then console log confirmation
     Promise.all(promiseArray)
         .then(() => {
             console.log("All messages changed to read")

@@ -7,7 +7,6 @@ export const NavBar = () => {
     return `        
     <nav class="navigation">
         <div class="navigation__item navigation__icon">
-            ${/*imgs will still work with a click event */''}
             <img src="./images/pb.png" alt="Giffygram icon" id="logo">
         </div>
         <div class="navigation__item navigation__name">
@@ -16,7 +15,6 @@ export const NavBar = () => {
         <div class="navigation__item navigation__message">
             <img id="directMessageIcon" src="./images/fountain-pen.svg" alt="Direct message">
             <div id="privateMessages" class="notification__count">
-                ${/*length of the array of unread messages for current user*/''}
                 ${NotificationCount()}
             </div>
         </div>
@@ -28,7 +26,8 @@ export const NavBar = () => {
 
 const NotificationCount = () =>  {
     const userUnreadMessages = getUserUnreadMessages()
-
+    //notifications are the length of the array of messages that are both unread and apply 
+    //to the currently logged in user
     return userUnreadMessages.length
 }
 
@@ -43,13 +42,15 @@ document.addEventListener(
             messageContainer.innerHTML = MessageForm()
         } else if (event.target.id == "privateMessages") {
             const applicationElement = document.querySelector(".giffygram")
+            //when the icon is clicked on to read the messages, render the navbar, messagelist, and footer
             applicationElement.innerHTML = PrivateMessages()
+            //and use the PATCH method to change all unread messages for the user to read
             patchMessageBoolean()
-
         } else if (event.target.id == "logo") {
             const applicationElement = document.querySelector(".giffygram")
-            applicationElement.innerHTML = GiffyGram()
-            
+            //re-render the page and fetch all data again when home button is clicked
+            //so that data is fetched again and container is set back to GiffyGram()
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
         }
     }
 )

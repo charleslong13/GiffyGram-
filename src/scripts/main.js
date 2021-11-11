@@ -22,7 +22,7 @@ export const renderApp = () => {
         }
     })
     //set the current user with localStorage every time the app is re-rendered
-    setCurrentUser(parseInt(localStorage['getItem']('gg_user')))
+    setCurrentUser(user)
 }
 
 renderApp()
@@ -33,6 +33,5 @@ applicationElement.addEventListener("stateChanged",
     customEvent => {
         console.log("State has changed. Re-rendering HTML...")
         renderApp()
-        
     }
 )
