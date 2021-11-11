@@ -35,10 +35,35 @@ export const MessageForm = () => {
     return html
 }
 
+window.onload = function(){
+    document.getElementById('directMessage__close').onclick = function(){
+        this.parentNode.parentNode.parentNode
+        .removeChild(this.parentNode.parentNode);
+        return false;
+    };
+};
 
 
 
 
+
+
+
+
+
+
+
+// document.addEventListener(
+//     "click",
+//     (event) => {
+//         if (event.target.id === "directMessage_close") {
+//             const applicationElement = document.querySelector(".messageFormContainer")
+     
+//          applicationElement.innerHTML = ""
+       
+//         }
+//     }
+// )
 
 
 
