@@ -26,14 +26,17 @@ export const getMessages = () => {
 
 
 
-export const getPosts = () => {
-    if (applicationState.feed.chosenUserId === null) {
-        return applicationState.posts.map(post => ({ ...post }))
-    } else {
-        const filteredPosts = applicationState.posts.filter(post => {
-          return  applicationState.feed.chosenUserId === post.userId
-        })
-        return filteredPosts
+export const getPosts = () => { // declaring a function getPosts
+    if (applicationState.feed.chosenUserId === null) { 
+        // checking if chosenUserId is strictly equal to null
+        return applicationState.posts.map(post => ({ ...post })) 
+        // if true then return all posts
+    } else { // if not null (false)
+        const filteredPosts = applicationState.posts.filter(post => {  
+            // Creating a new array of filtered objects by using the conditional statement below.                                                    
+          return  applicationState.feed.chosenUserId === post.userId   
+        }) // conditional check if chosenUerId is strictly equal to post.userId. (this is what make up the new array)
+        return filteredPosts // returning the filteredPosts variable
     }
 }
 
@@ -47,12 +50,17 @@ export const getFollows = () => {
 export const getCurrentUser = () => {
     return { ...applicationState.currentUser }
 }
-export const setCurrentUser = (id) => {
-    applicationState.currentUser.currentUserId = id
-}
-export const setChosenUserDropdownOption = (id) => {
-    applicationState.feed.chosenUserId = id
-    mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+export const setCurrentUser = (id) => { 
+    // function that sets the current "Post by user" option in transient state.
+    applicationState.currentUser.currentUserId = id 
+    // creating the key value pair of currentUserId and assing to it the value of id which is
+}  // a parameter thats passed in to the function as an argument.
+export const setChosenUserDropdownOption = (id) => { 
+    // function that sets transient state for the user that was chosen from the dropdown menu "Post by user" .
+    applicationState.feed.chosenUserId = id 
+    // getting the chosenUserId from the applicationState Object on line 8.
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+    // dispatched a custom event that will fetch API and re-render HTML from the Main.
 }
 
 
@@ -109,7 +117,8 @@ export const fetchFollows = () => {
         )
 }
 
-export const saveDirectMessage = (directMessageObj) => { // export fumction that saves the state of Direct Messages created on the MessageForm module
+export const saveDirectMessage = (directMessageObj) => { 
+    // export fumction that saves the state of Direct Messages created on the MessageForm module
     const fetchOptions = {
         method: "POST",
         headers: {
