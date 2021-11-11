@@ -110,5 +110,22 @@ export const saveDirectMessage = (directMessageObj) => { // export fumction that
         })
 }
 
+export const patchMessageBoolean = (messageId) => {
+    const fetchOptions = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            read: true
+        })
+    }
 
+
+    return fetch(`${API}/messages/${messageId}`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
 

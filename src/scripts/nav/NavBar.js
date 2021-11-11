@@ -1,7 +1,7 @@
 import { MessageForm } from "../message/MessageForm.js"
-import {getCurrentUser, getMessages} from "../data/provider.js"
 import { PrivateMessages } from "../message/PrivateMessages.js"
 import { GiffyGram } from "../GiffyGram.js"
+import { userUnreadMessages } from "../feed/MessageList.js"
 
 export const NavBar = () => {
     return `        
@@ -16,8 +16,8 @@ export const NavBar = () => {
         <div class="navigation__item navigation__message">
             <img id="directMessageIcon" src="./images/fountain-pen.svg" alt="Direct message">
             <div id="privateMessages" class="notification__count">
-                ${/*replace with function to render dynamic message count*/''}
-                ${NotificationCount()}
+                ${/*length of the array of unread messages for current user*/''}
+                ${userUnreadMessages().length}
             </div>
         </div>
         <div class="navigation__item navigation__logout">
@@ -46,16 +46,3 @@ document.addEventListener(
         }
     }
 )
-const NotificationCount = () => {
-    const messages = getMessages()
-    const currentUser = getCurrentUser()
-
-    //create an array of message objects that do not have the "read" key, and thus are unread.
-    const unreadArray = messages.filter(message => !message.read)
-    //check through unread messages and filter out those that were sent to the current user, store in an array
-    const userUnreadMessages = unreadArray.filter(unreadMessage => unreadMessage.recipientId === currentUser.currentUserId)
-
-    //return a string of the length of the array (the number of unread objects with appropriate recipientId)
-    return `${userUnreadMessages.length}`
-
-}
