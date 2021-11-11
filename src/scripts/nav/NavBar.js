@@ -55,3 +55,17 @@ const NotificationCount = () => {
     return `${userUnreadMessages.length}`
 
 }
+
+document.addEventListener(
+    "click",
+    (event) => {
+        if (event.target.id === "directMessage_close") {
+            debugger
+             const applicationElement = document.querySelector(".messageFormContainer")
+     
+         applicationElement.innerHTML = ""
+       
+        }
+    }
+    
+)
