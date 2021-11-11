@@ -23,6 +23,16 @@ export const getUsers = () => {
 export const getMessages = () => {
     return applicationState.messages.map(message => ({ ...message }))
 }
+
+export const getUserUnreadMessages = () => {
+    //create an array of message objects that do not have the "read" key, and thus are unread.
+    const unreadArray = applicationState.messages.filter(message => !message.read)
+    //check through unread messages and filter out those that were sent to the current user, store in an array
+    const userUnreadMessages = unreadArray.filter(unreadMessage => unreadMessage.recipientId === applicationState.currentUser.currentUserId)
+
+    return userUnreadMessages
+}
+
 export const getPosts = () => {
     return applicationState.posts.map(post => ({ ...post }))
 }
@@ -33,7 +43,7 @@ export const getFollows = () => {
     return applicationState.follows.map(follow => ({ ...follow }))
 }
 export const getCurrentUser = () => {
-    return {...applicationState.currentUser}
+    return { ...applicationState.currentUser }
 }
 export const setCurrentUser = (id) => {
     applicationState.currentUser.currentUserId = id
@@ -110,22 +120,27 @@ export const saveDirectMessage = (directMessageObj) => { // export fumction that
         })
 }
 
-export const patchMessageBoolean = (messageId) => {
-    const fetchOptions = {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            read: true
-        })
+export const patchMessageBoolean = () => {
+    const promiseArray = []
+    const userUnreadMessages = getUserUnreadMessages()
+
+    for (const message of userUnreadMessages) {
+        promiseArray.push(fetch(`${API}/messages/${message.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    read: true
+                })
+            })
+            .then(response => response.json())
+        )
     }
-
-
-    return fetch(`${API}/messages/${messageId}`, fetchOptions)
-        .then(response => response.json())
+    Promise.all(promiseArray)
         .then(() => {
-            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+            console.log("All messages changed to read")
         })
 }
 

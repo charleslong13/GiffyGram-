@@ -1,8 +1,10 @@
-import { getMessages, getUsers, getCurrentUser, patchMessageBoolean} from "../data/provider.js"
+import { getMessages, getUsers, getCurrentUser, patchMessageBoolean, getUserUnreadMessages} from "../data/provider.js"
+
+
 
 export const MessageList = () => {
     const users = getUsers()
-    const userUnreadMessages = userUnreadMessages()
+    const userUnreadMessages = getUserUnreadMessages()
 
     return`
     <div class="messages">
@@ -17,14 +19,4 @@ export const MessageList = () => {
         })}
         
     </div>`
-}
-
-export const userUnreadMessages = () => {
-    const messages = getMessages()
-    const currentUser = getCurrentUser()
-
-    //create an array of message objects that do not have the "read" key, and thus are unread.
-    const unreadArray = messages.filter(message => !message.read)
-    //check through unread messages and filter out those that were sent to the current user, store in an array
-    return unreadArray.filter(unreadMessage => unreadMessage.recipientId === currentUser.currentUserId)
 }

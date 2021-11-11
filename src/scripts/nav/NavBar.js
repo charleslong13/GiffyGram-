@@ -1,7 +1,7 @@
 import { MessageForm } from "../message/MessageForm.js"
 import { PrivateMessages } from "../message/PrivateMessages.js"
 import { GiffyGram } from "../GiffyGram.js"
-import { userUnreadMessages } from "../feed/MessageList.js"
+import { getUserUnreadMessages, patchMessageBoolean } from "../data/provider.js"
 
 export const NavBar = () => {
     return `        
@@ -17,13 +17,19 @@ export const NavBar = () => {
             <img id="directMessageIcon" src="./images/fountain-pen.svg" alt="Direct message">
             <div id="privateMessages" class="notification__count">
                 ${/*length of the array of unread messages for current user*/''}
-                ${userUnreadMessages().length}
+                ${NotificationCount()}
             </div>
         </div>
         <div class="navigation__item navigation__logout">
             <button id="logout" class="fakeLink">Logout</button>
         </div>
     </nav>`
+}
+
+const NotificationCount = () =>  {
+    const userUnreadMessages = getUserUnreadMessages()
+
+    return userUnreadMessages.length
 }
 
 //create a click eventlistener so that when the pen icon is clicked it will render our message form  
@@ -38,6 +44,7 @@ document.addEventListener(
         } else if (event.target.id == "privateMessages") {
             const applicationElement = document.querySelector(".giffygram")
             applicationElement.innerHTML = PrivateMessages()
+            patchMessageBoolean()
 
         } else if (event.target.id == "logo") {
             const applicationElement = document.querySelector(".giffygram")
