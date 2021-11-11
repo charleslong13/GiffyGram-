@@ -1,5 +1,6 @@
 import { MessageForm } from "../message/MessageForm.js"
 import {getCurrentUser, getMessages} from "../data/provider.js"
+import { PrivateMessages } from "../message/PrivateMessages.js"
 
 export const NavBar = () => {
     return `        
@@ -13,7 +14,7 @@ export const NavBar = () => {
         </div>
         <div class="navigation__item navigation__message">
             <img id="directMessageIcon" src="./images/fountain-pen.svg" alt="Direct message">
-            <div class="notification__count">
+            <div id="privateMessages" class="notification__count">
                 ${/*replace with function to render dynamic message count*/''}
                 ${NotificationCount()}
             </div>
@@ -30,9 +31,14 @@ document.addEventListener(
     (event) => {
         if (event.target.id === "directMessageIcon") {
             //created a new div and gave it a class of messageFormContainer in our giffygram module, below we are directing where our message form renders 
-            const applicationElement = document.querySelector(".messageFormContainer")
+            const messageContainer = document.querySelector(".messageFormContainer")
             //return value of our message form is a string - the line below is responsible for rendering the form as html
-            applicationElement.innerHTML = MessageForm()
+            messageContainer.innerHTML = MessageForm()
+        }
+        if (event.target.id == "privateMessages") {
+            const applicationElement = document.querySelector(".giffygram")
+            applicationElement.innerHTML = PrivateMessages()
+
         }
     }
 )
