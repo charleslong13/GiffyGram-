@@ -44,19 +44,20 @@ document.addEventListener(
         if (event.target.id === "newPost__cancel") {
             const applicationElement = document.getElementById("postFormArea")
            applicationElement.innerHTML = PostEntryButton()
+           // created an else if so if the save button is clicked then it creates a postObj and then posts it to the api by importing and invoking saveNewPost from our provider.js
         } else if (event.target.id === "newPost__submit") {
                     alert("Your post has been saved!")
                     const userId = getCurrentUser().currentUserId
                     const title = document.querySelector('input[name="postTitle"]').value
                     const imageURL = document.querySelector('input[name="postURL"]').value
                     const description = document.querySelector('textarea[name="postDescription"]').value
-                    
+                    const dateInput = new Date()
                     const postObj = {
                         userId: userId,
                         title: title,
                         imageURL: imageURL,
                         description: description,
-                       
+                        datePosted: dateInput.toLocaleDateString()
                     }
                     saveNewPost(postObj)
                 }})

@@ -25,7 +25,7 @@ export const PostList = () => {
                 <a href="#" class="profileLink" id="profile--${foundUser.id}">
                     Posted by: ${foundUser.name}
                 </a>
-                on 11/9/2021
+                on ${postObj.datePosted}
             </div>
             <div class="post__actions">
                 <div>
