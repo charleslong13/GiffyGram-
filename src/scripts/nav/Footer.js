@@ -40,10 +40,8 @@ export const Footer = () => { // function that generates dropdowns for "Posts by
 
                 <option value=0">Choose a user...</option>
                 ${users.map(userObj => {
-                    return `<option value="${userObj.id}">${userObj.name}"</option>`
-                }
-                    )
-                }
+                    return `<option value="${userObj.id}">${userObj.name}</option>`
+                })}
 
             </select>
         </div>
