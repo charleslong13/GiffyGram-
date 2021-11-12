@@ -96,7 +96,9 @@ export const getDisplayMessages = () => {
     return applicationState.feed.displayMessages
 }
 export const getChosenUserProfileId = () => {
+    //get the chosen user profile id from transient state
     return applicationState.feed.chosenUserProfileId
+    //returning the chosen user profile from the feed object in application state.
 }
 
 
@@ -138,9 +140,10 @@ export const resetTransient = () => {
     }
 }
 
-export const setChosenUserProfileId = (id) => {
+export const setChosenUserProfileId = (id) => { 
+    //setting the Chosen user profile id in stransient state
     applicationState.feed.chosenUserProfileId = id 
-    // getting the chosenUserId from the applicationState Object on line 8.
+    // broadcasting state changed to the DOM 
     mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
 }
 

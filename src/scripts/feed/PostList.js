@@ -1,4 +1,4 @@
-import { getPosts, getUsers, DeletePost, getCurrentUser, getUserFavoritePosts, DeleteFavorite, getFavorites, saveNewFavorite } from '../data/provider.js'
+import { getPosts, getUsers, DeletePost, getCurrentUser, getUserFavoritePosts, DeleteFavorite, getFavorites, saveNewFavorite,setChosenUserProfileId } from '../data/provider.js'
 
 
 export const PostList = () => {
@@ -85,21 +85,19 @@ document.addEventListener(
                 }
                 saveNewFavorite(newFavoriteObject)
             }
+        } else if (event.target.id.startsWith("blockPost--")) {  // checking that what was clicked starts with blockPost--
+                const [, postObjId] = event.target.id.split("--") // splitting the Id from the "blockPost--" element
+                DeletePost(parseInt(postObjId)) // invoking the function with an argument of postObjId variable that holds the posts Id value.
+        } else if (event.target.id.startsWith("profile--")){
+            //adding event listener to check if profile-- was clicked on 
+                const [, userObjId] = event.target.id.split("--")
+                //creating an array of the user objet Id taken from the .split() 
+                setChosenUserProfileId(parseInt(userObjId)) 
+                //invoking the function and passing in as an argument the userObjId variable that holds the value of the user ID
         }
     })
 
 
-
-
-
-//add click event. target is = to  . startswith "blockPost-- .split  pull postObj.id
-document.addEventListener("click",  // click event listener
-    click => {
-        if (click.target.id.startsWith("blockPost--")) {  // checking that what was clicked starts with blockPost--
-            const [, postObjId] = click.target.id.split("--") // splitting the Id from the "blockPost--" element
-            DeletePost(parseInt(postObjId)) // invoking the function with an argument of postObjId variable that holds the posts Id value.
-        }
-    })
 
 
 
