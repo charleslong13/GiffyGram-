@@ -18,11 +18,13 @@ const applicationState = {
 }
 
 export const filteredPosts = () => {
+    //declaring an export function filteredPosts() 
     const filteredPostsArray = applicationState.posts.filter(post => post.userId === applicationState.feed.chosenUserProfileId)
-    
+    //filtering the posts array and checking if the userId is equal to the chosen user profile that was clicked on whose value is stored in applicationState in the 
+    //feed object. This value is then being assigned to the filteredPostsArray variable.
     return filteredPostsArray
     
-    // const filteredPosts = filteredPostsArray.filter(filteredPost => filteredPost.recipientId === applicationState.post.userId)
+    
 }
 
 
