@@ -18,7 +18,7 @@
 
 .message__section {
     font-size: large;
-    margin: 0.75rem;
+    /* margin: 0.75rem; */
     width: max-content;
 }
 
@@ -32,22 +32,38 @@
 }
 
 .messages {
-    padding: 7rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 5rem 0;
 }
 
 .message {
     border: 1px dotted lightblue;
-    padding: 2rem;
+    padding: 2rem 1rem 2rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgb(148, 148, 148);
+    margin: 1rem 25%;
+    flex-basis: 50%;
+}
+
+.message__read {
+    border: 1px dotted lightblue;
+    background-color: rgba(184, 182, 182, 0.646);
+    padding: 2rem 1rem 1rem 1rem;
     border-radius: 0.5rem;
     box-shadow: 0.25rem 0.25rem 0.5rem rgb(143, 143, 143);
-    margin: 0 25%;
+    margin: 1rem 25%;
     flex-basis: 50%;
 }
 
 .message__author {
     font-weight: bold;
     margin-bottom: 1rem;
+}
+
+.read__text {
+    font-size: smaller;
+    font-style: italic;
+    margin-left: 90%;
 }

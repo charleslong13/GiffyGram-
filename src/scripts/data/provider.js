@@ -32,6 +32,14 @@ export const getUserUnreadMessages = () => {
 
     return userUnreadMessages
 }
+export const getUserReadMessages = () => {
+    //create an array of message objects that do not have the "read" key, and thus are unread.
+    const unreadArray = applicationState.messages.filter(message => message.read)
+    //check through unread messages and filter out those that were sent to the current user, store in an array
+    const userUnreadMessages = unreadArray.filter(unreadMessage => unreadMessage.recipientId === applicationState.currentUser.currentUserId)
+
+    return userUnreadMessages
+}
 export const getUserFavoritePosts = () => {
     //filter favorites based on the current logged in user
     const currentUserFavorites = applicationState.favorites.filter(favorite => favorite.userId === applicationState.currentUser.currentUserId)
@@ -84,6 +92,9 @@ export const getChosenUserId = () => {
 export const getDisplayFavorites = () => {
     return applicationState.feed.displayFavorites
 }
+export const getDisplayMessages = () => {
+    return applicationState.feed.displayMessages
+}
 
 
 
@@ -110,6 +121,18 @@ export const setDisplayFavoritesBoolean = () => {
     }
     // Fetch API and re-render HTML from the Main.
     mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+}
+export const setDisplayMessagesBoolean = () => { 
+    applicationState.feed.displayMessages = true
+    // // Fetch API and re-render HTML from the Main.
+    // mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+}
+export const resetTransient = () => {
+    applicationState.feed = {
+        chosenUserId: 0,
+        displayFavorites: false,
+        displayMessages: false
+    }
 }
 
 
@@ -183,7 +206,6 @@ export const saveDirectMessage = (directMessageObj) => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
         })
 }
-
 export const saveNewPost = (postObj) => { // export function that saves the state of the new post created and posts it to the API
     const fetchOptions = {
         method: "POST",
@@ -195,6 +217,22 @@ export const saveNewPost = (postObj) => { // export function that saves the stat
 
 
     return fetch(`${API}/posts`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
+export const saveNewFavorite = (favoriteObj) => { // export function that saves the state of the new post created and posts it to the API
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(favoriteObj)
+    }
+
+
+    return fetch(`${API}/favorites`, fetchOptions)
         .then(response => response.json())
         .then(() => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
@@ -231,6 +269,7 @@ export const patchMessageBoolean = () => {
         })
 }
 
+//DELETE from API
 export const DeletePost = (id) => { // function that takes a parameter of id and will delete that post from the API
     return fetch(`${API}/posts/${id}`, { 
         method: "DELETE" })
@@ -240,3 +279,13 @@ export const DeletePost = (id) => { // function that takes a parameter of id and
             }
         )
 }
+export const DeleteFavorite = (id) => { // function that takes a parameter of id and will delete that post from the API
+    return fetch(`${API}/favorites/${id}`, { 
+        method: "DELETE" })
+        .then(
+            () => {
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged")) // custom event that broadcasts state changed
+            }
+        )
+}
+
