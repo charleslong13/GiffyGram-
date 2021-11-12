@@ -1,5 +1,4 @@
-
-import { getChosenUserProfileId, getCurrentUser, getUsers, filteredPosts} from "../data/provider.js";
+import { getChosenUserProfileId, getCurrentUser, getUsers, filteredPosts, getCorrespondence} from "../data/provider.js";
 import { NavBar } from "../nav/NavBar.js";
 
 export const ProfileForm = () => {
@@ -14,12 +13,11 @@ export const ProfileForm = () => {
     <div class=profileForm>
         <h3>${foundProfileUser.name}'s Profile</h3>
             <div class="postNumber"> 
-                <div> Total Number of Posts by ${foundProfileUser.name}: *# of posts* </div>
-                <div> Total Number of Posts by *Post Author*: ${userPosts.length} </div>
+                <div> Total Number of Posts by ${foundProfileUser.name}: ${userPosts.length}</div>
             </div>
             <div class="messageHeader">Messages between ${foundProfileUser.name} and ${currentUser.name}</div>
             <div class="messagesBetweenUsers">
-                <div> *messages* </div>
+                <div class="messages"> ${ProfileMessageList()} </div>
             </div>
     </div>`
 
@@ -32,6 +30,19 @@ export const Profile = () => {
     `
 }
 
-//Then the person should see the author's first name, last name, 
-//total number of posts, and any messages between the logged in user and the post author displayed in descending chronological order
+export const ProfileMessageList = () => {
+    const users = getUsers()
+   
+    const correspondence = getCorrespondence()
+    return `
+      ${correspondence.map(message => {
+        const foundUser = users.find(user => user.id === message.userId)
+            return `<div class="message" id="message--${message.id}">
+                        <div class="message__author">${foundUser.name}</div>
+                        <div class="message__text">${message.text}</div>
+                </div>`
+    }).join("")}
+    
+    `
+}
 

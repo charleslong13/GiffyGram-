@@ -17,6 +17,16 @@ const applicationState = {
     follows: []
 }
 
+//Create a function in provider.js to filter the messages array based on the transient states 
+//of the currentUser and the userProfile that was clicked.
+
+export const getCorrespondence = () => {
+    const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.currentUser.currentUserId || message.authorId === applicationState.currentUser.currentUserId)
+    const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.feed.chosenUserProfileId || message.authorId === applicationState.feed.chosenUserProfileId)
+    const filteredMessagesByUserAndProfile = currentUserMessagesArray.filter(userMessage => profileUserMessagesArray.includes(userMessage));
+
+    return filteredMessagesByUserAndProfile
+}
 export const filteredPosts = () => {
     //declaring an export function filteredPosts() 
     const filteredPostsArray = applicationState.posts.filter(post => post.userId === applicationState.feed.chosenUserProfileId)
