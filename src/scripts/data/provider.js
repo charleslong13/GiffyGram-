@@ -221,6 +221,22 @@ export const saveNewPost = (postObj) => { // export function that saves the stat
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
         })
 }
+export const saveNewFavorite = (favoriteObj) => { // export function that saves the state of the new post created and posts it to the API
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(favoriteObj)
+    }
+
+
+    return fetch(`${API}/favorites`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
 
 
 /* PATCH the "read" boolean on the message objects in the API 
@@ -262,3 +278,13 @@ export const DeletePost = (id) => { // function that takes a parameter of id and
             }
         )
 }
+export const DeleteFavorite = (id) => { // function that takes a parameter of id and will delete that post from the API
+    return fetch(`${API}/favorites/${id}`, { 
+        method: "DELETE" })
+        .then(
+            () => {
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged")) // custom event that broadcasts state changed
+            }
+        )
+}
+
