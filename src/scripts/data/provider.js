@@ -17,6 +17,17 @@ const applicationState = {
     follows: []
 }
 
+export const filteredPosts = () => {
+    const filteredPostsArray = applicationState.posts.filter(post => post.userId === applicationState.feed.chosenUserProfileId)
+    
+    return filteredPostsArray
+    
+    // const filteredPosts = filteredPostsArray.filter(filteredPost => filteredPost.recipientId === applicationState.post.userId)
+}
+
+
+
+
 //Return a copy of the applicationState
 export const getUsers = () => {
     return applicationState.users.map(user => ({ ...user }))
