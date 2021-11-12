@@ -32,10 +32,12 @@ export const getUserUnreadMessages = () => {
     return userUnreadMessages
 }
 export const getUserFavoritePosts = () => {
+    //filter favorites based on the current logged in user
     const currentUserFavorites = applicationState.favorites.filter(favorite => favorite.userId === applicationState.currentUser.currentUserId)
     let filteredPostsByFavoritesOnly = []
         for(const post of applicationState.posts){
             const foundFavorite = currentUserFavorites.find(favorite => favorite.postId === post.id)
+            //if the post is in a favorite object, push it to the empty array
             if(foundFavorite){
                 filteredPostsByFavoritesOnly.push(post)
             }
@@ -44,16 +46,24 @@ export const getUserFavoritePosts = () => {
 }
 export const getPosts = () => {
     const feed = applicationState.feed //setting feed to a variable to cut down on wordiness
-    const filteredPostsByUserOnly = applicationState.posts.filter(post => feed.chosenUserId === post.userId) // Creating a new array of filtered objects by checking if chosenUerId is strictly equal to post.userId and adding the objects where that is true to the array.
+    // Create a new array of filtered objects by checking if chosenUserId is strictly equal to post.userId and adding the objects where that is true to the array.
+    const filteredPostsByUserOnly = applicationState.posts.filter(post => feed.chosenUserId === post.userId)
+    // Array of posts filtered by favorites from the above function
     const filteredPostsByFavoritesOnly = getUserFavoritePosts()
+    //Array that checks both of the above filtered arrays and returns the objects that are in both.
     const filteredPostsByUserAndFavorite = filteredPostsByUserOnly.filter(userPost => filteredPostsByFavoritesOnly.includes(userPost));
 
-    if (feed.chosenUserId === 0 && feed.displayFavorites === false) {// checking if chosenUserId is strictly equal to 0 and the favorite checkbox hasn't been clicked
-        return applicationState.posts.map(post => ({ ...post })) // if true then return all posts
-    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === false){ // if a user has been chosen but the favorites box hasn't been checked
-        return filteredPostsByUserOnly // returning the filteredPosts array
+    // if user filter is on "all" and checkbox is unclicked/empty.
+    if (feed.chosenUserId === 0 && feed.displayFavorites === false) {
+        // if true then return all posts
+        return applicationState.posts.map(post => ({ ...post })) 
+    // if a user has been chosen but the favorites box hasn't been checked
+    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === false){ 
+        return filteredPostsByUserOnly 
+    //if a user has not been chosen and the favorites box is checked
     } else if (feed.chosenUserId === 0 && feed.displayFavorites === true){
         return filteredPostsByFavoritesOnly
+    //if a user has been chosen AND the favorites box is checked.
     } else if (feed.chosenUserId !== 0 && feed.displayFavorites === true){
         return filteredPostsByUserAndFavorite
     }
@@ -91,15 +101,14 @@ export const setChosenUserDropdownOption = (id) => {
     // dispatched a custom event that will fetch API and re-render HTML from the Main.
 }
 export const setDisplayFavoritesBoolean = () => { 
-    // function that sets displayFavorites transient boolean 
+    // function that sets displayFavorites transient boolean based on what it currently is.
     if(applicationState.feed.displayFavorites === false){
         applicationState.feed.displayFavorites = true
     } else {
         applicationState.feed.displayFavorites = false
     }
-    // getting the chosenUserId from the applicationState Object on line 8.
+    // Fetch API and re-render HTML from the Main.
     mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
-    // dispatched a custom event that will fetch API and re-render HTML from the Main.
 }
 
 
