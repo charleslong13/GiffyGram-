@@ -6,6 +6,7 @@ import {MessageList} from '../feed/MessageList.js';
 export const PrivateMessages = () => {
     return`
         ${NavBar()}
+        <div class="messageFormContainer"></div>
         ${MessageList()}
         ${Footer()}
     `

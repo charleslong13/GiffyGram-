@@ -1,7 +1,6 @@
 import { MessageForm } from "../message/MessageForm.js"
 import { PrivateMessages } from "../message/PrivateMessages.js"
-import { GiffyGram } from "../GiffyGram.js"
-import { getUserUnreadMessages, patchMessageBoolean } from "../data/provider.js"
+import { getUserUnreadMessages, patchMessageBoolean, resetTransient, setDisplayMessagesBoolean } from "../data/provider.js"
 
 export const NavBar = () => {
     return `        
@@ -43,10 +42,12 @@ document.addEventListener(
         } else if (event.target.id == "privateMessages") {
             const applicationElement = document.querySelector(".giffygram")
             //when the icon is clicked on to read the messages, render the navbar, messagelist, and footer
-            applicationElement.innerHTML = PrivateMessages()
+            setDisplayMessagesBoolean()
             //and use the PATCH method to change all unread messages for the user to read
             patchMessageBoolean()
+            applicationElement.innerHTML = PrivateMessages()
         } else if (event.target.id == "logo") {
+            resetTransient()
             const applicationElement = document.querySelector(".giffygram")
             //re-render the page and fetch all data again when home button is clicked
             //so that data is fetched again and container is set back to GiffyGram()
