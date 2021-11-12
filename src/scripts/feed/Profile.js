@@ -1,7 +1,6 @@
 
 import { getChosenUserProfileId, getCurrentUser, getUsers, filteredPosts} from "../data/provider.js";
 import { NavBar } from "../nav/NavBar.js";
-import { getUsers, filteredPosts } from "../data/provider.js";
 
 export const ProfileForm = () => {
     const userProfileId = getChosenUserProfileId()
