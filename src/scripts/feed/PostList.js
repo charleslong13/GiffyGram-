@@ -33,8 +33,8 @@ export const PostList = () => {
             <div id="post__action" class="post__actions">
                 <div>  <!-- If foundFavoritedPost is truthy then run the line after the question mark if its falsey run the line after the colon  -->
                         ${foundFavoritedPost
-                    ? `<img id="favoritePost-" name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-yellow.svg"></img>`
-                    : `<img id="favoritePost--" name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-blank.svg"></img>`
+                ? `<img id="favoritePost-" name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-yellow.svg"></img>`
+                : `<img id="favoritePost--" name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-blank.svg"></img>`
             }
                     
                    
