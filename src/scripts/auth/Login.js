@@ -20,6 +20,11 @@ document.addEventListener("click", clickEvent => {
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         }
     }
+
+    
+
+
+
     
 })
 
