@@ -5,7 +5,7 @@ const mainContainer = document.querySelector(".giffygram")
 const applicationState = {
     currentUser: {},
     feed: {
-        chosenUserId: null,
+        chosenUserId: 0,
         displayFavorites: false,
         displayMessages: false
     },
@@ -31,17 +31,31 @@ export const getUserUnreadMessages = () => {
 
     return userUnreadMessages
 }
-export const getPosts = () => { // declaring a function getPosts
-    if (applicationState.feed.chosenUserId === null) { 
-        // checking if chosenUserId is strictly equal to null
-        return applicationState.posts.map(post => ({ ...post })) 
-        // if true then return all posts
-    } else { // if not null (false)
-        const filteredPosts = applicationState.posts.filter(post => {  
-            // Creating a new array of filtered objects by using the conditional statement below.                                                    
-        return  applicationState.feed.chosenUserId === post.userId   
-        }) // conditional check if chosenUerId is strictly equal to post.userId. (this is what make up the new array)
-        return filteredPosts // returning the filteredPosts variable
+export const getUserFavoritePosts = () => {
+    const currentUserFavorites = applicationState.favorites.filter(favorite => favorite.userId === applicationState.currentUser.currentUserId)
+    let filteredPostsByFavoritesOnly = []
+        for(const post of applicationState.posts){
+            const foundFavorite = currentUserFavorites.find(favorite => favorite.postId === post.id)
+            if(foundFavorite){
+                filteredPostsByFavoritesOnly.push(post)
+            }
+        }
+    return filteredPostsByFavoritesOnly
+}
+export const getPosts = () => {
+    const feed = applicationState.feed //setting feed to a variable to cut down on wordiness
+    const filteredPostsByUserOnly = applicationState.posts.filter(post => feed.chosenUserId === post.userId) // Creating a new array of filtered objects by checking if chosenUerId is strictly equal to post.userId and adding the objects where that is true to the array.
+    const filteredPostsByFavoritesOnly = getUserFavoritePosts()
+    const filteredPostsByUserAndFavorite = filteredPostsByUserOnly.filter(userPost => filteredPostsByFavoritesOnly.includes(userPost));
+
+    if (feed.chosenUserId === 0 && feed.displayFavorites === false) {// checking if chosenUserId is strictly equal to 0 and the favorite checkbox hasn't been clicked
+        return applicationState.posts.map(post => ({ ...post })) // if true then return all posts
+    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === false){ // if a user has been chosen but the favorites box hasn't been checked
+        return filteredPostsByUserOnly // returning the filteredPosts array
+    } else if (feed.chosenUserId === 0 && feed.displayFavorites === true){
+        return filteredPostsByFavoritesOnly
+    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === true){
+        return filteredPostsByUserAndFavorite
     }
 }
 export const getFavorites = () => {
@@ -53,6 +67,13 @@ export const getFollows = () => {
 export const getCurrentUser = () => {
     return { ...applicationState.currentUser }
 }
+export const getChosenUserId = () => {
+    return applicationState.feed.chosenUserId
+}
+export const getDisplayFavorites = () => {
+    return applicationState.feed.displayFavorites
+}
+
 
 
 //Set transient state
@@ -65,6 +86,17 @@ export const setCurrentUser = (id) => {
 export const setChosenUserDropdownOption = (id) => { 
     // function that sets transient state for the user that was chosen from the dropdown menu "Post by user" .
     applicationState.feed.chosenUserId = id 
+    // getting the chosenUserId from the applicationState Object on line 8.
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+    // dispatched a custom event that will fetch API and re-render HTML from the Main.
+}
+export const setDisplayFavoritesBoolean = () => { 
+    // function that sets displayFavorites transient boolean 
+    if(applicationState.feed.displayFavorites === false){
+        applicationState.feed.displayFavorites = true
+    } else {
+        applicationState.feed.displayFavorites = false
+    }
     // getting the chosenUserId from the applicationState Object on line 8.
     mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
     // dispatched a custom event that will fetch API and re-render HTML from the Main.

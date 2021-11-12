@@ -42,3 +42,5 @@ export const PostList = () => {
     </section>`
     
 }
+
+

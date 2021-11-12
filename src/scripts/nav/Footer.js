@@ -1,4 +1,4 @@
-import { getUsers, setChosenUserDropdownOption } from '../data/provider.js'
+import { getChosenUserId, getDisplayFavorites, getUsers, setChosenUserDropdownOption, setDisplayFavoritesBoolean } from '../data/provider.js'
 
 
 // click event for user selection to set chosen user transient state. Create set Function in provider.js. 
@@ -10,6 +10,8 @@ document.addEventListener( //listen for the selection of "posts by user" dropdow
             const dropdownUserSelectionId = event.target.value // declare the variable dropdownUserSelectionId an assign to it the valur of userObj.id on line 42
             setChosenUserDropdownOption(parseInt(dropdownUserSelectionId)) // invoking the setChosenDropdownOption() function and passing the dropdownUserSelectionId 
             //parameter as an argument to that function. This function saves the user dropdown choice to transient state.
+        } else if (event.target.id === "showOnlyFavorites"){
+            setDisplayFavoritesBoolean()
         }
     }
 )
@@ -19,6 +21,8 @@ document.addEventListener( //listen for the selection of "posts by user" dropdow
 
 export const Footer = () => { // function that generates dropdowns for "Posts by user" and for "Posts Since".
     const users = getUsers()
+    const chosenUserId = getChosenUserId()
+    const favoritesBoolean = getDisplayFavorites()
 
     return `
     <footer class="footer">
@@ -38,19 +42,24 @@ export const Footer = () => { // function that generates dropdowns for "Posts by
             <label for="userSelection">Posts by user</label>
             <select id="userSelection">
 
-                <option value=0">Choose a user...</option>
+                <option value=0">All</option>
                 ${users.map(userObj => {
-                    return `<option value="${userObj.id}">${userObj.name}</option>`
+                    if(chosenUserId === userObj.id){
+                        return `<option value="${userObj.id}" selected>${userObj.name}</option>`
+                    } else {
+                        return `<option value="${userObj.id}">${userObj.name}</option>`
+                    }
                 })}
 
             </select>
         </div>
 
-
-
         <div class="footer__item">
             <label for="showOnlyFavorites">Show only favorites</label>
-            <input id="showOnlyFavorites" type="checkbox">
+            ${favoritesBoolean === true
+                ?`<input id="showOnlyFavorites" type="checkbox" checked></input>`
+                :`<input id="showOnlyFavorites" type="checkbox"></input>`
+            }
         </div>
     </footer>`
 }
