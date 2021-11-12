@@ -1,4 +1,4 @@
-
+import { getCorrespondence } from "../data/provider.js";
 import { getUsers } from "../data/provider.js";
 
 export const ProfileForm = () => {
@@ -11,7 +11,7 @@ export const ProfileForm = () => {
             </div>
             <div class="messageHeader">Messages between *current user* and *post author*</div>
             <div class="messagesBetweenUsers">
-                <div> *messages* </div>
+                <div class="messages"> ${ProfileMessageList()} </div>
             </div>
     </div>`
     return html
@@ -20,6 +20,19 @@ export const ProfileForm = () => {
 
 
 
-//Then the person should see the author's first name, last name, 
-//total number of posts, and any messages between the logged in user and the post author displayed in descending chronological order
+export const ProfileMessageList = () => {
+    const users = getUsers()
+   
+    const correspondence = getCorrespondence()
+    return `
+      ${correspondence.map(message => {
+        const foundUser = users.find(user => user.id === message.userId)
+            return `<div class="message" id="message--${message.id}">
+                        <div class="message__author">${foundUser.name}</div>
+                        <div class="message__text">${message.text}</div>
+                </div>`
+    })}
+    
+    `
+}
 
