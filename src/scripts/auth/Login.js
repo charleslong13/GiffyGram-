@@ -1,4 +1,5 @@
 import { getUsers } from "../data/provider.js"
+import { Register } from "./Register.js"
 
 //click event listener to listen for a click on the loginButton
 document.addEventListener("click", clickEvent => {
@@ -23,10 +24,12 @@ document.addEventListener("click", clickEvent => {
 
 })
 
+
 export const LoginForm = () => {
     return `
         <div class="loginForm">
             <form>
+                <h2>Log In</h2>
                 <fieldset>
                     <label for="email">Email:</label>
                     <input type="text" name="email" autofocus placeholder="Email address" />
@@ -38,5 +41,6 @@ export const LoginForm = () => {
             </form>
             <button id="loginButton" name="loginButton">Login</button>
         </div>
+        ${Register()}
     `
 }

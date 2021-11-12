@@ -11,10 +11,10 @@ document.addEventListener(  // event listener that will listen for the click on 
             const userId = getCurrentUser().currentUserId // assigning the value of the getCurrentUser() function to userId which is an Object 
             
             const directMessageObj = { // declare a variable to hold the values of the user choice and text which will be sent to the API
-
                 userId: userId,
                 recipientId: parseInt(recipientId),
-                text: text
+                text: text,
+                timestamp: Date.now()
             }
 
             saveDirectMessage(directMessageObj)
@@ -49,6 +49,7 @@ export const MessageForm = () => {
         ${/*Added a onclick handler to take away the messageform display when the cancel or X buttons are clicked*/''}
         <button id="directMessage__cancel" onclick="document.getElementById('myDiv').style.display='none'">Cancel</button>
         <button class="close" id="directMessage__close" onclick="document.getElementById('myDiv').style.display='none'">x</button>
+        <div id="savedMessage"></div>
     </div>`
 
     return html

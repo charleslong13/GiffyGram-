@@ -49,6 +49,12 @@
     font-size: 6rem;
 }
 
+.posts {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
 .post {
     margin: 0 25%;
     flex-basis: 50%;

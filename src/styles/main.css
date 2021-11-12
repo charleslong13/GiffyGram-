@@ -47,8 +47,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .loginForm {
-    margin: 0 25%;
+    margin: 2rem 25% 2rem 25%;
 }
+
+.loginForm fieldset{
+    margin: 1rem 0;
+}
+.registerForm {
+    margin: 10rem 25% 2rem 25%;
+}
+
+.registerForm fieldset{
+    margin: 1rem 0;
+}
+
 
 #logo {
     cursor: pointer;

@@ -17,17 +17,80 @@ const applicationState = {
     follows: []
 }
 
-//Create a function in provider.js to filter the messages array based on the transient states 
-//of the currentUser and the userProfile that was clicked.
+//Return a copy of the API
+export const getUsers = () => {
+    return applicationState.users.map(user => ({ ...user }))
+}
+export const getMessages = () => {
+    return applicationState.messages.map(message => ({ ...message }))
+}
+export const getPosts = () => {
+    const feed = applicationState.feed //setting feed to a variable to cut down on wordiness
+    // Create a new array of filtered objects by checking if chosenUserId is strictly equal to post.userId and adding the objects where that is true to the array.
+    const filteredPostsByUserOnly = applicationState.posts.filter(post => feed.chosenUserId === post.userId)
+    // Array of posts filtered by favorites from the above function
+    const filteredPostsByFavoritesOnly = getUserFavoritePosts()
+    //Array that checks both of the above filtered arrays and returns the objects that are in both.
+    const filteredPostsByUserAndFavorite = filteredPostsByUserOnly.filter(userPost => filteredPostsByFavoritesOnly.includes(userPost));
 
+    // if user filter is on "all" and checkbox is unclicked/empty.
+    if (feed.chosenUserId === 0 && feed.displayFavorites === false) {
+        // if true then return all posts
+        return applicationState.posts.map(post => ({ ...post })) 
+    // if a user has been chosen but the favorites box hasn't been checked
+    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === false){ 
+        return filteredPostsByUserOnly 
+    //if a user has not been chosen and the favorites box is checked
+    } else if (feed.chosenUserId === 0 && feed.displayFavorites === true){
+        return filteredPostsByFavoritesOnly
+    //if a user has been chosen AND the favorites box is checked.
+    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === true){
+        return filteredPostsByUserAndFavorite
+    }
+}
+export const getFavorites = () => {
+    return applicationState.favorites.map(favorite => ({ ...favorite }))
+}
+
+//Return a copy of the transient state
+export const getCurrentUser = () => {
+    return { ...applicationState.currentUser }
+}
+export const getChosenUserId = () => {
+    return applicationState.feed.chosenUserId
+}
+export const getDisplayFavorites = () => {
+    return applicationState.feed.displayFavorites
+}
+export const getDisplayMessages = () => {
+    return applicationState.feed.displayMessages
+}
+export const getChosenUserProfileId = () => {
+    //get the chosen user profile id from transient state
+    return applicationState.feed.chosenUserProfileId
+    //returning the chosen user profile from the feed object in application state.
+}
+
+//Return a copy of filtered versions of the API and transient state
 export const getCorrespondence = () => {
-    const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.currentUser.currentUserId || message.authorId === applicationState.currentUser.currentUserId)
-    const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.feed.chosenUserProfileId || message.authorId === applicationState.feed.chosenUserProfileId)
-    const filteredMessagesByUserAndProfile = currentUserMessagesArray.filter(userMessage => profileUserMessagesArray.includes(userMessage));
+    let filteredMessagesByUserAndProfile = []
+
+    for(const message of applicationState.messages){
+        if (message.recipientId === applicationState.currentUser.currentUserId && message.userId === applicationState.feed.chosenUserProfileId){
+            filteredMessagesByUserAndProfile.push(message)
+        } else if(message.userId === applicationState.currentUser.currentUserId && message.recipientId === applicationState.feed.chosenUserProfileId){
+            filteredMessagesByUserAndProfile.push(message)
+        }
+    }
 
     return filteredMessagesByUserAndProfile
+    // const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.currentUser.currentUserId || message.authorId === applicationState.currentUser.currentUserId)
+    // const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.feed.chosenUserProfileId || message.authorId === applicationState.feed.chosenUserProfileId)
+    // const filteredMessagesByUserAndProfile = currentUserMessagesArray.filter(userMessage => profileUserMessagesArray.includes(userMessage));
+
+    // return filteredMessagesByUserAndProfile
 }
-export const filteredPosts = () => {
+export const getUserProfilePosts = () => {
     //declaring an export function filteredPosts() 
     const filteredPostsArray = applicationState.posts.filter(post => post.userId === applicationState.feed.chosenUserProfileId)
     //filtering the posts array and checking if the userId is equal to the chosen user profile that was clicked on whose value is stored in applicationState in the 
@@ -35,17 +98,6 @@ export const filteredPosts = () => {
     return filteredPostsArray
     
     
-}
-
-
-
-
-//Return a copy of the applicationState
-export const getUsers = () => {
-    return applicationState.users.map(user => ({ ...user }))
-}
-export const getMessages = () => {
-    return applicationState.messages.map(message => ({ ...message }))
 }
 export const getUserUnreadMessages = () => {
     //create an array of message objects that do not have the "read" key, and thus are unread.
@@ -76,54 +128,6 @@ export const getUserFavoritePosts = () => {
         }
     return filteredPostsByFavoritesOnly
 }
-export const getPosts = () => {
-    const feed = applicationState.feed //setting feed to a variable to cut down on wordiness
-    // Create a new array of filtered objects by checking if chosenUserId is strictly equal to post.userId and adding the objects where that is true to the array.
-    const filteredPostsByUserOnly = applicationState.posts.filter(post => feed.chosenUserId === post.userId)
-    // Array of posts filtered by favorites from the above function
-    const filteredPostsByFavoritesOnly = getUserFavoritePosts()
-    //Array that checks both of the above filtered arrays and returns the objects that are in both.
-    const filteredPostsByUserAndFavorite = filteredPostsByUserOnly.filter(userPost => filteredPostsByFavoritesOnly.includes(userPost));
-
-    // if user filter is on "all" and checkbox is unclicked/empty.
-    if (feed.chosenUserId === 0 && feed.displayFavorites === false) {
-        // if true then return all posts
-        return applicationState.posts.map(post => ({ ...post })) 
-    // if a user has been chosen but the favorites box hasn't been checked
-    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === false){ 
-        return filteredPostsByUserOnly 
-    //if a user has not been chosen and the favorites box is checked
-    } else if (feed.chosenUserId === 0 && feed.displayFavorites === true){
-        return filteredPostsByFavoritesOnly
-    //if a user has been chosen AND the favorites box is checked.
-    } else if (feed.chosenUserId !== 0 && feed.displayFavorites === true){
-        return filteredPostsByUserAndFavorite
-    }
-}
-export const getFavorites = () => {
-    return applicationState.favorites.map(favorite => ({ ...favorite }))
-}
-export const getFollows = () => {
-    return applicationState.follows.map(follow => ({ ...follow }))
-}
-export const getCurrentUser = () => {
-    return { ...applicationState.currentUser }
-}
-export const getChosenUserId = () => {
-    return applicationState.feed.chosenUserId
-}
-export const getDisplayFavorites = () => {
-    return applicationState.feed.displayFavorites
-}
-export const getDisplayMessages = () => {
-    return applicationState.feed.displayMessages
-}
-export const getChosenUserProfileId = () => {
-    //get the chosen user profile id from transient state
-    return applicationState.feed.chosenUserProfileId
-    //returning the chosen user profile from the feed object in application state.
-}
-
 
 
 //Set transient state
@@ -152,8 +156,12 @@ export const setDisplayFavoritesBoolean = () => {
 }
 export const setDisplayMessagesBoolean = () => { 
     applicationState.feed.displayMessages = true
-    // // Fetch API and re-render HTML from the Main.
-    // mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+}
+export const setChosenUserProfileId = (id) => { 
+    //setting the Chosen user profile id in stransient state
+    applicationState.feed.chosenUserProfileId = id 
+    // broadcasting state changed to the DOM 
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
 }
 export const resetTransient = () => {
     applicationState.feed = {
@@ -163,15 +171,6 @@ export const resetTransient = () => {
         chosenUserProfileId: 0
     }
 }
-
-export const setChosenUserProfileId = (id) => { 
-    //setting the Chosen user profile id in stransient state
-    applicationState.feed.chosenUserProfileId = id 
-    // broadcasting state changed to the DOM 
-    mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
-}
-
-
 
 
 //Fetch the API (GET)
@@ -271,6 +270,22 @@ export const saveNewFavorite = (favoriteObj) => { // export function that saves 
 
 
     return fetch(`${API}/favorites`, fetchOptions)
+        .then(response => response.json())
+        .then(() => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
+export const saveNewUser = (userObj) => { // export function that saves the state of the new post created and posts it to the API
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userObj)
+    }
+
+
+    return fetch(`${API}/users`, fetchOptions)
         .then(response => response.json())
         .then(() => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
