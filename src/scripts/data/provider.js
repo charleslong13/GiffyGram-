@@ -95,6 +95,9 @@ export const getDisplayFavorites = () => {
 export const getDisplayMessages = () => {
     return applicationState.feed.displayMessages
 }
+export const getChosenUserProfileId = () => {
+    return applicationState.feed.chosenUserProfileId
+}
 
 
 
@@ -134,6 +137,14 @@ export const resetTransient = () => {
         displayMessages: false
     }
 }
+
+export const setChosenUserProfileId = (id) => {
+    applicationState.feed.chosenUserProfileId = id 
+    // getting the chosenUserId from the applicationState Object on line 8.
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged")) 
+}
+
+
 
 
 //Fetch the API (GET)
