@@ -1,4 +1,4 @@
-import { getPosts, getUsers, DeletePost, getCurrentUser, getUserFavoritePosts, DeleteFavorite, getFavorites, saveNewFavorite,setChosenUserProfileId } from '../data/provider.js'
+import { getPosts, getUsers, DeletePost, getCurrentUser, getUserFavoritePosts, DeleteFavorite, getFavorites, saveNewFavorite,setChosenUserProfileId, filteredPosts } from '../data/provider.js'
 
 
 export const PostList = () => {
@@ -93,6 +93,7 @@ document.addEventListener(
                 const [, userObjId] = event.target.id.split("--")
                 //creating an array of the user objet Id taken from the .split() 
                 setChosenUserProfileId(parseInt(userObjId)) 
+                filteredPosts()
                 //invoking the function and passing in as an argument the userObjId variable that holds the value of the user ID
         }
     })
