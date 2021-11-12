@@ -1,12 +1,15 @@
 import { LoginForm } from "./auth/Login.js"
-import { fetchFavorites, fetchFollows, fetchMessages, fetchPosts, fetchUsers, setCurrentUser } from "./data/provider.js"
+import { fetchFavorites, fetchFollows, fetchMessages, fetchPosts, fetchUsers, getDisplayMessages, setCurrentUser } from "./data/provider.js"
 import { GiffyGram } from "./GiffyGram.js"
+import { PrivateMessages } from "./message/PrivateMessages.js"
 
 const applicationElement = document.querySelector(".giffygram")
 
 export const renderApp = () => {
     //get user out of local storage 
     const user = parseInt(localStorage.getItem("gg_user"))
+    const displayMessages = getDisplayMessages()
+
     //fetch our data from the api
     fetchUsers()
     .then(() => fetchMessages())
@@ -15,8 +18,10 @@ export const renderApp = () => {
     .then(() => fetchFavorites())
     .then(() => 
     //check if the user exists and then if it does, load the giffygram homepage, if no data has been input load the login page 
-        {if (user) {
+        {if (user && displayMessages === false) {
             applicationElement.innerHTML = GiffyGram()
+        } else if (user && displayMessages === true){
+            applicationElement.innerHTML = PrivateMessages()
         } else {
             applicationElement.innerHTML = LoginForm()
         }
