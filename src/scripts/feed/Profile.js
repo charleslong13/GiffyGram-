@@ -1,13 +1,14 @@
 
-import { getUsers } from "../data/provider.js";
+import { getUsers, filteredPosts } from "../data/provider.js";
 
 export const ProfileForm = () => {
     const users = getUsers()
+    const userPosts = filteredPosts()
     let html = `
     <div class=profileForm>
         <h3>*Post Author's* Profile</h3>
             <div class="postNumber"> 
-                <div> Total Number of Posts by *Post Author*: *# of posts* </div>
+                <div> Total Number of Posts by *Post Author*: ${userPosts.length} </div>
             </div>
             <div class="messageHeader">Messages between *current user* and *post author*</div>
             <div class="messagesBetweenUsers">
