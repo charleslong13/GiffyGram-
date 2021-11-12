@@ -21,9 +21,8 @@ const applicationState = {
 //of the currentUser and the userProfile that was clicked.
 
 export const getCorrespondence = () => {
-   
-    const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === currentUser.currentUserId || message.authorId === currentUser.currentUserId)
-    const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === chosenUserProfileId || message.authorId === chosenUserProfileId)
+    const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.currentUser.currentUserId || message.authorId === applicationState.currentUser.currentUserId)
+    const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.feed.chosenUserProfileId || message.authorId === applicationState.feed.chosenUserProfileId)
     const filteredMessagesByUserAndProfile = currentUserMessagesArray.filter(userMessage => profileUserMessagesArray.includes(userMessage));
 
     return filteredMessagesByUserAndProfile
@@ -160,7 +159,8 @@ export const resetTransient = () => {
     applicationState.feed = {
         chosenUserId: 0,
         displayFavorites: false,
-        displayMessages: false
+        displayMessages: false,
+        chosenUserProfileId: 0
     }
 }
 

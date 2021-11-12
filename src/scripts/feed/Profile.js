@@ -1,30 +1,34 @@
-<<<<<<< HEAD
-import { getCorrespondence } from "../data/provider.js";
-import { getUsers } from "../data/provider.js";
-=======
-
-import { getUsers, filteredPosts } from "../data/provider.js";
->>>>>>> main
+import { getChosenUserProfileId, getCurrentUser, getUsers, filteredPosts, getCorrespondence} from "../data/provider.js";
+import { NavBar } from "../nav/NavBar.js";
 
 export const ProfileForm = () => {
+    const userProfileId = getChosenUserProfileId()
+    const currentUserId = getCurrentUser().currentUserId
     const users = getUsers()
+    const foundProfileUser = users.find(user => user.id === userProfileId)
+    const currentUser = users.find(user => user.id === currentUserId)
     const userPosts = filteredPosts()
-    let html = `
+
+    return `
     <div class=profileForm>
-        <h3>*Post Author's* Profile</h3>
+        <h3>${foundProfileUser.name}'s Profile</h3>
             <div class="postNumber"> 
-                <div> Total Number of Posts by *Post Author*: ${userPosts.length} </div>
+                <div> Total Number of Posts by ${foundProfileUser.name}: ${userPosts.length}</div>
             </div>
-            <div class="messageHeader">Messages between *current user* and *post author*</div>
+            <div class="messageHeader">Messages between ${foundProfileUser.name} and ${currentUser.name}</div>
             <div class="messagesBetweenUsers">
                 <div class="messages"> ${ProfileMessageList()} </div>
             </div>
     </div>`
-    return html
+
 }
 
-
-
+export const Profile = () => {
+    return`
+    ${NavBar()}
+    ${ProfileForm()}
+    `
+}
 
 export const ProfileMessageList = () => {
     const users = getUsers()
@@ -37,7 +41,7 @@ export const ProfileMessageList = () => {
                         <div class="message__author">${foundUser.name}</div>
                         <div class="message__text">${message.text}</div>
                 </div>`
-    })}
+    }).join("")}
     
     `
 }
