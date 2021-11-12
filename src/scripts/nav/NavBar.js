@@ -51,6 +51,15 @@ document.addEventListener(
             //re-render the page and fetch all data again when home button is clicked
             //so that data is fetched again and container is set back to GiffyGram()
             applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        } else if (event.target.id == "logout") {
+            //checks if logout button was clicked
+            localStorage.clear() 
+            //runs the .clear() method on localstorage to clear out the currently logged in user
+            const applicationElement = document.querySelector(".giffygram")
+            //re-render the page and fetch all data again when home button is clicked
+            //so that data is fetched again and container is set back to GiffyGram()
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+
         }
     }
 )
