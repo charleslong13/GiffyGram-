@@ -7,7 +7,7 @@ export const ProfileForm = () => {
     <div class=profileForm>
         <h3>*Post Author's* Profile</h3>
             <div class="postNumber"> 
-                <div> Total Number of Posts by *Post Author*: <br> *# of posts* </div>
+                <div> Total Number of Posts by *Post Author*: *# of posts* </div>
             </div>
             <div class="messageHeader">Messages between *current user* and *post author*</div>
             <div class="messagesBetweenUsers">

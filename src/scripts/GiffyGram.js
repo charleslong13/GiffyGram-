@@ -19,6 +19,7 @@ export const GiffyGram = () => {
     ${PostList()}
     </div>
     ${ProfileForm()}
+    <br><br>
     ${Footer()}
     `
     
