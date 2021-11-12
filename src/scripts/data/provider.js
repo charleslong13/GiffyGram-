@@ -221,3 +221,12 @@ export const patchMessageBoolean = () => {
         })
 }
 
+export const DeletePost = (id) => { // function that takes a parameter of id and will delete that post from the API
+    return fetch(`${API}/posts/${id}`, { 
+        method: "DELETE" })
+        .then(
+            () => {
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged")) // custom event that broadcasts state changed
+            }
+        )
+}

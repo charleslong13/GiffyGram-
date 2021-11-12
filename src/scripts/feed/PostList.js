@@ -1,4 +1,4 @@
-import { getPosts, getUsers } from '../data/provider.js'
+import { getPosts, getUsers, DeletePost, getCurrentUser } from '../data/provider.js'
 
 
 export const PostList = () => {
@@ -33,9 +33,17 @@ export const PostList = () => {
                     <img id="favoritePost--" class="actionIcon" src="./images/favorite-star-blank.svg">
                     <img id="favoritePost--" class="actionIcon" src="./images/favorite-star-yellow.svg">
                 </div>
-                <div>
-                    <img id="blockPost--" class="actionIcon" src="./images/block.svg">
-                </div>
+                
+                
+                ${postObj.userId === getCurrentUser().currentUserId // if statement that checks if the userId on a post is the same as the  logged in user. If true the then generate the html which generates the trashcan Icon
+                ? ` <div> 
+                        <img id="blockPost--${postObj.id}" class="actionIcon" src="./images/block.svg">
+                    </div>`
+                    : ""
+                }
+                
+                
+                
             </div>
         </div>`
     }).join("")}
@@ -43,4 +51,12 @@ export const PostList = () => {
     
 }
 
+//add click event. target is = to  . startswith "blockPost-- .split  pull postObj.id
+document.addEventListener("click",  // click event listener
+click => {
+    if (click.target.id.startsWith("blockPost--")) {  // checking that what was clicked starts with blockPost--
+        const [,postObjId] = click.target.id.split("--") // splitting the Id from the "blockPost--" element
+        DeletePost(parseInt(postObjId)) // invoking the function with an argument of postObjId variable that holds the posts Id value.
+    }
+})
 
