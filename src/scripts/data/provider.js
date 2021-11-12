@@ -7,7 +7,8 @@ const applicationState = {
     feed: {
         chosenUserId: 0,
         displayFavorites: false,
-        displayMessages: false
+        displayMessages: false,
+        chosenUserProfileId: 0
     },
     users: [],
     messages: [],
