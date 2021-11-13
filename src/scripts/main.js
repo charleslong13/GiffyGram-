@@ -1,5 +1,5 @@
 import { LoginForm } from "./auth/Login.js"
-import { fetchFavorites, fetchFollows, fetchMessages, fetchPosts, fetchUsers, getChosenUserProfileId, getDisplayMessages, setCurrentUser } from "./data/provider.js"
+import { fetchFavorites, fetchMessages, fetchPosts, fetchUsers, getChosenUserProfileId, getDisplayMessages, setCurrentUser } from "./data/provider.js"
 import { Profile} from "./feed/Profile.js"
 import { GiffyGram } from "./GiffyGram.js"
 import { PrivateMessages } from "./message/PrivateMessages.js"
@@ -16,7 +16,6 @@ export const renderApp = () => {
     fetchUsers()
     .then(() => fetchMessages())
     .then(() => fetchPosts())
-    .then(() => fetchFollows())
     .then(() => fetchFavorites())
     .then(() => 
     //check if the user exists and then if it does, load the giffygram homepage, if no data has been input load the login page 
@@ -40,7 +39,6 @@ renderApp()
 //when the state changes, trigger a custom event that console logs our state changed message and runs our renderApp to render either the login or homepage 
 applicationElement.addEventListener("stateChanged",
     customEvent => {
-        console.log("State has changed. Re-rendering HTML...")
         renderApp()
     }
 )

@@ -5,8 +5,7 @@ export const PostList = () => {
     const posts = getPosts()
     const users = getUsers()
     const userFavoritedPosts = getUserFavoritePosts()
-    const favorites = getFavorites()
-    const currentUserId = getCurrentUser().currentUserId
+
     //finding an object in user favorited posts where the postObj.id is equal to the clicked star's post object id and storing it in a variable
     return `<section class="posts">
     ${posts.map(postObj => {
@@ -33,18 +32,17 @@ export const PostList = () => {
             <div id="post__action" class="post__actions">
                 <div>  
                     ${foundFavoritedPost
-                ? `<img name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-yellow.svg"></img>`
-                : `<img name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-blank.svg"></img>`
-            }     
+                        ? `<img name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-yellow.svg"></img>`
+                        : `<img name="star--${postObj.id}" class="actionIcon" src="./images/favorite-star-blank.svg"></img>`
+                    }     
                 </div>
                 
-                
                 ${postObj.userId === getCurrentUser().currentUserId // if statement that checks if the userId on a post is the same as the  logged in user. If true the then generate the html which generates the trashcan Icon
-                ? ` <div> 
-                        <img id="blockPost--${postObj.id}" class="actionIcon" src="./images/block.svg">
-                    </div>`
-                : ""
-            }
+                    ? ` <div> 
+                            <img id="blockPost--${postObj.id}" class="actionIcon" src="./images/block.svg">
+                        </div>`
+                    : ""
+                }
                 
             </div>
         </div>`
@@ -94,7 +92,6 @@ document.addEventListener("click", event => {
         const [, userObjId] = event.target.id.split("--")
         //creating an array of the user objet Id taken from the .split() 
         setChosenUserProfileId(parseInt(userObjId))
-        filteredPosts()
         //invoking the function and passing in as an argument the userObjId variable that holds the value of the user ID
     }
 })

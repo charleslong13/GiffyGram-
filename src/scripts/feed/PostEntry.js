@@ -9,17 +9,20 @@ export const PostEntryButton = () => {
 //this function generates the actual post form 
 export const PostEntry = () => {
     return `
+    <div class="postForm">
         <div>
             <input value="" name="postTitle" class="newPost__input" type="text" placeholder="Title">
         </div>
         <div>
             <input value="" name="postURL" class="newPost__input" type="text" placeholder="URL of gif">
         </div>
-
-        <textarea name="postDescription" class="newPost__input newPost__description" placeholder="Story behind your gif..."></textarea>
+        <div>
+            <textarea name="postDescription" class="newPost__input" cols="10" rows="5" placeholder="Story behind your gif..."></textarea>
+        </div>
 
         <button id="newPost__submit">Save</button>
         <button id="newPost__cancel" >Cancel</button>
+    </div>
     `
 }
 //above I also added in an onclick handler to be able to close the form 
@@ -29,7 +32,7 @@ document.addEventListener(
     (event) => {
         if (event.target.id === "postFormButton") {
             //created a new div and gave it a class of postFormContainer in our giffygram module, below we are directing where our post form renders 
-            const applicationElement = document.getElementById("postFormButton")
+            const applicationElement = document.getElementById("postFormArea")
             //the line below is responsible for rendering the form as html
             applicationElement.innerHTML = PostEntry()
         }

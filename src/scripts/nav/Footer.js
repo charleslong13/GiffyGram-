@@ -1,4 +1,4 @@
-import { getChosenUserId, getDisplayFavorites, getUsers, setChosenUserDropdownOption, setDisplayFavoritesBoolean } from '../data/provider.js'
+import { getChosenUserId, getChosenYear, getDisplayFavorites, getUsers, setChosenUserDropdownOption, setChosenYear, setDisplayFavoritesBoolean } from '../data/provider.js'
 
 
 // click event for user selection to set chosen user transient state. Create set Function in provider.js. 
@@ -12,6 +12,8 @@ document.addEventListener( //listen for the selection of "posts by user" dropdow
             //parameter as an argument to that function. This function saves the user dropdown choice to transient state.
         } else if (event.target.id === "showOnlyFavorites"){
             setDisplayFavoritesBoolean()
+        } else if (event.target.id === "yearSelection"){
+            setChosenYear(event.target.value)
         }
     }
 )
@@ -23,16 +25,22 @@ export const Footer = () => { // function that generates dropdowns for "Posts by
     const users = getUsers()
     const chosenUserId = getChosenUserId()
     const favoritesBoolean = getDisplayFavorites()
+    const chosenYear = getChosenYear()
+    const dates = ["2020", "2019", "2018", "2017"]
 
     return `
     <footer class="footer">
         <div class="footer__item">
             <label for="yearSelection">Posts since</label>
             <select id="yearSelection">
-                <option value="1">2020</option>
-                <option value="2">2019</option>
-                <option value="3">2018</option>
-                <option value="4">2017</option>
+                <option value="all">All</option>
+                ${dates.map(date => {
+                    if(chosenYear === date){
+                        return`<option value=${date} selected>${date}</option>`
+                    } else {
+                        return`<option value=${date}>${date}</option>`
+                    }
+                })}
             </select>
         <span id="postCount">10</span>
         </div>
