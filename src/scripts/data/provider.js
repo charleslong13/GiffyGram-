@@ -105,7 +105,13 @@ export const getChosenYear = () => {
 export const getCorrespondence = () => {
     let filteredMessagesByUserAndProfile = []
 
-    for (const message of applicationState.messages) {
+    const sortedMessages = applicationState.messages.sort((obj1, obj2) => {
+        const dateValue1 = new Date(obj1.timestamp);
+        const dateValue2 = new Date(obj2.timestamp);
+        return dateValue1 - dateValue2
+    })
+
+    for (const message of sortedMessages) {
         if (message.recipientId === applicationState.currentUser.currentUserId && message.userId === applicationState.feed.chosenUserProfileId) {
             filteredMessagesByUserAndProfile.push(message)
         } else if (message.userId === applicationState.currentUser.currentUserId && message.recipientId === applicationState.feed.chosenUserProfileId) {
@@ -114,11 +120,6 @@ export const getCorrespondence = () => {
     }
 
     return filteredMessagesByUserAndProfile
-    // const currentUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.currentUser.currentUserId || message.authorId === applicationState.currentUser.currentUserId)
-    // const profileUserMessagesArray = applicationState.messages.filter(message => message.recipientId === applicationState.feed.chosenUserProfileId || message.authorId === applicationState.feed.chosenUserProfileId)
-    // const filteredMessagesByUserAndProfile = currentUserMessagesArray.filter(userMessage => profileUserMessagesArray.includes(userMessage));
-
-    // return filteredMessagesByUserAndProfile
 }
 export const getUserProfilePosts = () => {
     //declaring an export function filteredPosts() 
